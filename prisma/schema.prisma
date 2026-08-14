@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// The schema still avoids native enums (kept as plain String, validated at the
+// app layer) to preserve the exact same Prisma Client API used everywhere in
+// the codebase — only the datasource provider changed from sqlite to postgresql.
+// Role: INTERNAUTE | ENTREPRISE | ADMIN
+// Mission.status: OUVERTE | ARCHIVEE
+// MissionClaim.status: EN_COURS | SOUMISE | VALIDEE | REJETEE | EXPIREE
+// CreditTransaction.type: DEPOT | RETRAIT | DEBIT_MISSION | CREDIT_MISSION | FRAIS_PLATEFORME | COMMISSION_PARRAINAGE
+// CreditTransaction.status: EN_ATTENTE | APPROUVEE | REJETEE
+// DEPOT/RETRAIT start EN_ATTENTE and only touch walletCents once an admin approves them —
+// the real money movement (bank transfer, mobile money payout) happens outside the app.
+// Dispute.status: OUVERT | RESOLU_INTERNAUTE | RESOLU_ENTREPRISE
+// Announcement.type: ANNONCE | PROMO
+// BanAppeal.status: OUVERT | ACCEPTE | REJETE
+
+model User {
+  id           String   @id @default(cuid())
+  role         String
+  name         String
+  email        String?  @unique
+  phone        String?  @unique
+  passwordHash String
+  currency     String   @default("EUR")
+  walletCents  Int      @default(0)
+  isBanned     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  // Email/phone confirmation (task: "note de confirmation" before the account is validated).
+  // Default true so every account that existed before this feature stays unaffected —
+  // only accounts created afterwards start out unverified on the channel they signed up with.
+  emailVerified            Boolean   @default(true)
+  phoneVerified            Boolean   @default(true)
+  verificationCode         String?
+  verificationCodeExpiresAt DateTime?
+
+  // Extended profile (task 5) — filled in after signup, all optional.
+  firstName  String?
+  lastName   String?
+  age        Int?
+  location   String?
+  profession String?
+  whatsapp   String?
+
+  // Social handles used as lightweight proof for social-media missions (task 3).
+  socialInstagram String?
+  socialTiktok    String?
+  socialFacebook  String?
+  socialTwitter   String?
+
+  // Entreprise-only: logo shown on the public "Partenaires" page and mission cards.
+  logoUrl String?
+
+  // Referral program — every internaute gets a shareable code; when a filleul earns
+  // money on a mission, the referrer earns 5% of that gain as a bonus.
+  referralCode String? @unique
+  referredById String?
+  referredBy   User?   @relation("Referrals", fields: [referredById], references: [id])
+  referrals    User[]  @relation("Referrals")
+
+  missionsCreated Mission[]           @relation("MissionOwner")
+  claims          MissionClaim[]
+  transactions    CreditTransaction[]
+  disputesRaised  Dispute[]
+  banAppeals      BanAppeal[]
+}
+
+model Mission {
+  id            String   @id @default(cuid())
+  title         String
+  instructions  String
+  category      String   @default("AUTRE")
+  currency      String   @default("EUR")
+  rewardCents   Int
+  slotsTotal    Int      @default(1)
+  deadlineHours Int      @default(24)
+  mediaJson     String?
+  lat           Float?
+  lng           Float?
+  status        String   @default("OUVERTE")
+  createdAt     DateTime @default(now())
+
+  owner   User   @relation("MissionOwner", fields: [ownerId], references: [id])
+  ownerId String
+
+  claims MissionClaim[]
+}
+
+model MissionClaim {
+  id              String    @id @default(cuid())
+  status          String    @default("EN_COURS")
+  claimedAt       DateTime  @default(now())
+  expiresAt       DateTime
+  submittedAt     DateTime?
+  report          String?
+  reportMediaJson String?
+  verificationCode String?
+  decidedAt       DateTime?
+
+  mission   Mission @relation(fields: [missionId], references: [id])
+  missionId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  dispute Dispute?
+
+  @@unique([missionId, userId])
+}
+
+model Dispute {
+  id         String    @id @default(cuid())
+  reason     String
+  status     String    @default("OUVERT")
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  claim   MissionClaim @relation(fields: [claimId], references: [id])
+  claimId String       @unique
+
+  raisedBy   User   @relation(fields: [raisedById], references: [id])
+  raisedById String
+}
+
+model CreditTransaction {
+  id          String   @id @default(cuid())
+  type        String
+  status      String   @default("APPROUVEE")
+  amountCents Int
+  note        String?
+  createdAt   DateTime @default(now())
+  decidedAt   DateTime?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model BanAppeal {
+  id         String    @id @default(cuid())
+  reason     String
+  status     String    @default("OUVERT")
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  type      String   @default("ANNONCE")
+  title     String
+  body      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
