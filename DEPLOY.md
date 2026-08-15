@@ -61,11 +61,11 @@ npx auth secret
 Cliquez sur **Deploy**. Le build exécute automatiquement :
 
 ```
-prisma generate && prisma migrate deploy && next build
+prisma generate && prisma db push --accept-data-loss && next build
 ```
 
-`prisma migrate deploy` crée les tables dans la base Postgres au premier
-déploiement (le dossier `prisma/migrations` a été régénéré pour Postgres).
+`prisma db push` crée les tables dans la base Postgres directement à partir de
+`schema.prisma`, sans fichiers de migration à gérer — suffisant pour ce projet.
 
 ## 7. Créer le compte administrateur
 
@@ -90,7 +90,7 @@ chez votre registrar).
 ## Mises à jour ultérieures
 
 Chaque `git push` sur la branche principale redéploie automatiquement le site
-et applique les nouvelles migrations Prisma s'il y en a.
+et resynchronise le schéma Postgres via `prisma db push`.
 
 ## Développement local après ce changement
 
@@ -100,5 +100,5 @@ SQLite — il faut une base Postgres locale ou distante pour `npm run dev`
 Copiez `.env.example`, remplissez les trois variables, puis :
 
 ```bash
-npx prisma migrate dev
+npx prisma db push
 ```
