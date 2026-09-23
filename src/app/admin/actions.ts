@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import { buildMissionPaymentOps } from "@/lib/payments";
-import { parseFcfa } from "@/lib/currency";
+import { parseFcfa, formatMoney } from "@/lib/currency";
 import { importKitMissions, type ImportReport, type KitFile } from "@/lib/seed-missions";
 import kitFile from "../../../pubafric-kit/missions.json";
 
@@ -268,6 +268,56 @@ export async function createAdminMission(
 
   revalidatePath("/admin");
   return { success: "Mission publiée par PubAFric." };
+}
+
+// Suppression définitive d'un compte de test et de tout ce qui s'y rattache (missions
+// qu'il a publiées, comptes-rendus, litiges, transactions, demandes de révision).
+// Garde-fous : jamais un administrateur, jamais soi-même, jamais un compte qui a de
+// l'argent sur son portefeuille (pour ne pas effacer un solde réel par erreur).
+export async function deleteUser(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const admin = await requireAdmin();
+  if (!admin) return { error: "Non autorisé." };
+
+  const userId = formData.get("userId") as string;
+  const target = await prisma.user.findUnique({ where: { id: userId } });
+  if (!target) return { error: "Utilisateur introuvable." };
+  if (target.role === "ADMIN" || target.id === admin.id) {
+    return { error: "Impossible de supprimer un administrateur." };
+  }
+  if (target.walletCents !== 0) {
+    return {
+      error: `Ce compte a un solde de ${formatMoney(target.walletCents)} : videz-le (retrait) avant de le supprimer.`,
+    };
+  }
+
+  const ownedMissions = await prisma.mission.findMany({
+    where: { ownerId: userId },
+    select: { id: true },
+  });
+  const claims = await prisma.missionClaim.findMany({
+    where: { OR: [{ userId }, { missionId: { in: ownedMissions.map((m) => m.id) } }] },
+    select: { id: true },
+  });
+  const claimIds = claims.map((c) => c.id);
+
+  await prisma.$transaction([
+    prisma.dispute.deleteMany({
+      where: { OR: [{ claimId: { in: claimIds } }, { raisedById: userId }] },
+    }),
+    prisma.missionClaim.deleteMany({ where: { id: { in: claimIds } } }),
+    prisma.creditTransaction.deleteMany({ where: { userId } }),
+    prisma.banAppeal.deleteMany({ where: { userId } }),
+    prisma.mission.deleteMany({ where: { ownerId: userId } }),
+    prisma.user.updateMany({ where: { referredById: userId }, data: { referredById: null } }),
+    prisma.user.delete({ where: { id: userId } }),
+  ]);
+
+  revalidatePath("/admin");
+  revalidatePath("/");
+  revalidatePath("/toutes-les-missions");
+  revalidatePath("/taskers");
+  revalidatePath("/partenaires");
+  return { success: "Compte supprimé." };
 }
 
 export async function publishMission(

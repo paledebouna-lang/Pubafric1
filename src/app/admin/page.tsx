@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { formatMoney } from "@/lib/currency";
 import { getCategory } from "@/lib/categories";
 import BanButton from "./BanButton";
+import DeleteUserButton from "./DeleteUserButton";
 import DisputeDecisionButtons from "./DisputeDecisionButtons";
 import ArchiveButton from "./ArchiveButton";
 import PublishButton from "./PublishButton";
@@ -312,7 +313,13 @@ export default async function AdminPage() {
                       <p>Filleuls : {filleulCounts.get(u.id) ?? 0}</p>
                     </div>
                   </div>
+                  <div className="flex flex-col items-end gap-2">
+                    <div className="flex flex-col items-end gap-2">
                   <BanButton userId={u.id} isBanned={u.isBanned} />
+                  <DeleteUserButton userId={u.id} name={u.name} />
+                </div>
+                    <DeleteUserButton userId={u.id} name={u.name} />
+                  </div>
                 </div>
               </div>
             );
@@ -363,7 +370,10 @@ export default async function AdminPage() {
                     </div>
                   </div>
                 </div>
-                <BanButton userId={u.id} isBanned={u.isBanned} />
+                <div className="flex flex-col items-end gap-2">
+                  <BanButton userId={u.id} isBanned={u.isBanned} />
+                  <DeleteUserButton userId={u.id} name={u.name} />
+                </div>
               </div>
             </div>
           ))}
