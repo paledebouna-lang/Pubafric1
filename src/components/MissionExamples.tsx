@@ -1,24 +1,14 @@
-import { Shirt, Lightbulb, Video } from "lucide-react";
+import Link from "next/link";
+import MissionCover from "./MissionCover";
+import { MISSION_IDEAS, getIdea } from "@/lib/mission-ideas";
+import { formatMoney } from "@/lib/currency";
 
-const EXAMPLES = [
-  {
-    icon: Shirt,
-    title: "PORTER UN VÊTEMENT PUBLICITAIRE",
-    subtitle: "Exemple d'instructions",
-  },
-  {
-    icon: Lightbulb,
-    title: "TROUVER UNE IDÉE DE MARQUE, DE NOM",
-    subtitle: "Exemple d'instructions",
-  },
-  {
-    icon: Video,
-    title: "FAIRE UNE VIDÉO D'UN ENDROIT",
-    subtitle: "Exemple d'instructions",
-  },
-];
+// Trois exemples mis en avant sur l'accueil ; tous les autres sont sur /exemples-de-missions.
+const FEATURED = ["porter-vetement-publicitaire", "trouver-idee-de-marque-nom", "faire-video-endroit"];
 
 export default function MissionExamples() {
+  const ideas = FEATURED.map(getIdea).filter((i): i is NonNullable<typeof i> => Boolean(i));
+
   return (
     <section className="bg-brand-blue px-6 py-20 text-white">
       <div className="mx-auto max-w-7xl text-center">
@@ -28,23 +18,41 @@ export default function MissionExamples() {
         </h2>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-3">
-          {EXAMPLES.map((ex) => (
-            <div key={ex.title} className="flex flex-col items-center gap-4">
-              <div className="flex h-40 w-full items-center justify-center bg-white/10">
-                <ex.icon size={56} strokeWidth={1.25} />
+          {ideas.map((idea) => (
+            <Link
+              key={idea.slug}
+              href={`/exemples-de-missions/${idea.slug}`}
+              className="group flex flex-col overflow-hidden bg-white text-left text-[#2b2f38] shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="aspect-[5/3] overflow-hidden">
+                <MissionCover
+                  variant={idea.cover}
+                  label={idea.title}
+                  className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+                />
               </div>
-              <p className="text-sm font-bold tracking-wide">{ex.title}</p>
-              <p className="text-xs text-white/80">{ex.subtitle}</p>
-            </div>
+              <div className="flex flex-1 flex-col p-5">
+                <p className="text-sm font-bold uppercase tracking-wide">{idea.title}</p>
+                <p className="mt-2 text-xs text-[#7c8797]">{idea.summary}</p>
+                <div className="mt-4 flex items-center justify-between pt-1">
+                  <span className="rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-bold text-brand-teal">
+                    dès {formatMoney(idea.suggestedReward)}
+                  </span>
+                  <span className="text-xs font-bold uppercase tracking-wide text-brand-blue">
+                    Voir le détail →
+                  </span>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
 
-        <a
-          href="#missions"
+        <Link
+          href="/exemples-de-missions"
           className="mt-14 inline-block bg-brand-gold px-8 py-3 text-sm font-bold tracking-wide text-white shadow-sm transition-colors hover:bg-brand-gold/90"
         >
-          VOIR LES AUTRES EXEMPLES
-        </a>
+          VOIR LES {MISSION_IDEAS.length} EXEMPLES
+        </Link>
       </div>
     </section>
   );

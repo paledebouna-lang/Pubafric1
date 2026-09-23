@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { formatMoney } from "@/lib/currency";
 import { getCategory } from "@/lib/categories";
+import Link from "next/link";
+import MissionCover from "./MissionCover";
 
 export default async function LatestMissions() {
   const missions = await prisma.mission.findMany({
@@ -24,12 +26,17 @@ export default async function LatestMissions() {
             {missions.map((mission) => {
               const category = getCategory(mission.category);
               return (
-                <div
+                <Link
                   key={mission.id}
-                  className="flex items-center justify-between gap-4 border-b border-border-soft px-2 py-3 text-left last:border-0"
+                  href={`/mission/${mission.id}`}
+                  className="flex items-center justify-between gap-4 border-b border-border-soft px-2 py-3 text-left transition-colors last:border-0 hover:bg-muted-bg"
                 >
-                  <div className="flex items-start gap-2">
-                    <category.icon size={16} className="mt-0.5 shrink-0 text-brand-blue" strokeWidth={1.5} />
+                  <div className="flex items-center gap-3">
+                    <MissionCover
+                      variant={mission.category}
+                      label={category.label}
+                      className="h-12 w-16 shrink-0 rounded"
+                    />
                     <div>
                       <p className="text-sm font-semibold text-[#2b2f38]">{mission.title}</p>
                       <p className="mt-1 text-xs text-[#9aa2b1]">
@@ -40,7 +47,7 @@ export default async function LatestMissions() {
                   <span className="shrink-0 whitespace-nowrap rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-bold text-brand-teal">
                     {formatMoney(mission.rewardCents)}
                   </span>
-                </div>
+                </Link>
               );
             })}
           </div>

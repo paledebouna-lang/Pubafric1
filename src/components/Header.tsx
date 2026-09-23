@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import LogoutButton from "./LogoutButton";
+import MobileMenu, { type MobileLink } from "./MobileMenu";
+import { spaceHref, spaceLabel } from "@/lib/space";
 
 const NAV_LINKS = [
   { label: "Internautes", href: "#internautes" },
@@ -9,6 +11,23 @@ const NAV_LINKS = [
 
 export default async function Header() {
   const session = await auth();
+  const user = session?.user;
+
+  const mobileLinks: MobileLink[] = [
+    ...(user && user.role !== "ADMIN" ? [{ label: spaceLabel(user.role), href: spaceHref(user.role) }] : []),
+    ...(user?.role === "ADMIN" ? [{ label: "ADMINISTRATION", href: "/admin" }] : []),
+    { label: "MISSIONS", href: "/toutes-les-missions" },
+    { label: "COMMENT ÇA MARCHE", href: "/comment-ca-marche" },
+    ...(user?.role !== "INTERNAUTE" ? [{ label: "NOS INTERNAUTES", href: "/taskers" }] : []),
+    { label: "PARTENAIRES", href: "/partenaires" },
+    ...(user && user.role !== "ADMIN"
+      ? [
+          { label: "MES CRÉDITS", href: user.role === "ENTREPRISE" ? "/entreprise/credits" : "/credits" },
+          { label: "MON PROFIL", href: "/profil" },
+        ]
+      : []),
+    ...(!user ? [{ label: "SE CONNECTER", href: "/connexion" }, { label: "S'INSCRIRE", href: "/inscription" }] : []),
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b-4 border-brand-red bg-white">
@@ -58,6 +77,10 @@ export default async function Header() {
             </>
           )}
         </nav>
+
+        <MobileMenu links={mobileLinks} userName={user?.name ?? null}>
+          {user && <LogoutButton />}
+        </MobileMenu>
 
         {session?.user ? (
           <div className="hidden items-center gap-3 md:flex">

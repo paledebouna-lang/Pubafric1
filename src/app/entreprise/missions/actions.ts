@@ -30,6 +30,10 @@ export async function createMission(
 
   const title = (formData.get("title") as string)?.trim();
   const instructions = (formData.get("instructions") as string)?.trim();
+  const description = (formData.get("description") as string)?.trim() || null;
+  const proofRequired = (formData.get("proofRequired") as string)?.trim() || null;
+  const estimatedMinutes = parseInt(formData.get("estimatedMinutes") as string, 10) || null;
+  const kind = formData.get("kind") === "TERRAIN" ? "TERRAIN" : "EN_LIGNE";
   const rewardFcfa = parseFcfa(formData.get("reward"));
   const category = formData.get("category") as string;
   const slotsTotal = parseInt(formData.get("slotsTotal") as string, 10) || 1;
@@ -59,6 +63,10 @@ export async function createMission(
     data: {
       title,
       instructions,
+      description,
+      proofRequired,
+      estimatedMinutes,
+      kind,
       category,
       rewardCents: rewardFcfa,
       slotsTotal,

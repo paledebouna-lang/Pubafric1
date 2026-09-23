@@ -67,6 +67,34 @@ export async function claimMission(
   return {};
 }
 
+// L'internaute abandonne une mission qu'il a prise mais ne veut plus exécuter : la place est
+// libérée pour les autres. Seule une mission encore "en cours" (rien n'a été envoyé) peut
+// être rétractée ; une fois le compte-rendu envoyé, c'est à l'entreprise de trancher.
+export async function retractClaim(
+  _prev: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  const session = await auth();
+  if (!session?.user || session.user.role !== "INTERNAUTE") {
+    return { error: "Vous devez être connecté en tant qu'internaute." };
+  }
+  const claimId = formData.get("claimId") as string;
+
+  const claim = await prisma.missionClaim.findUnique({ where: { id: claimId } });
+  if (!claim || claim.userId !== session.user.id) {
+    return { error: "Mission introuvable." };
+  }
+  if (claim.status !== "EN_COURS") {
+    return { error: "Cette mission ne peut plus être rétractée." };
+  }
+
+  await prisma.missionClaim.delete({ where: { id: claimId } });
+
+  revalidatePath("/missions");
+  revalidatePath("/entreprise/missions");
+  return {};
+}
+
 export async function raiseDispute(
   _prev: ActionState,
   formData: FormData

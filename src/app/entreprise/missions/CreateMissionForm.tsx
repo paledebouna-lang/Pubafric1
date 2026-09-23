@@ -4,16 +4,30 @@ import { useActionState, useState } from "react";
 import { createMission, type ActionState } from "./actions";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import LocationPicker from "@/components/LocationPicker";
+import type { MissionIdea } from "@/lib/mission-ideas";
+import { ideaInstructionsText } from "@/lib/mission-ideas";
 
-export default function CreateMissionForm() {
+export default function CreateMissionForm({ template }: { template?: MissionIdea }) {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(createMission, {});
   const [needsLocation, setNeedsLocation] = useState(false);
   const [position, setPosition] = useState<[number, number] | null>(null);
 
   return (
-    <form action={formAction} className="flex flex-col gap-3 border border-border-soft bg-white p-5">
+    <form
+      key={template?.slug ?? "vide"}
+      action={formAction}
+      className="flex flex-col gap-3 border border-border-soft bg-white p-5"
+    >
+      {template && (
+        <p className="bg-brand-gold/10 px-3 py-2 text-xs font-semibold text-[#2b2f38]">
+          Modèle « {template.title} » chargé : adaptez les textes et le prix avant de publier.
+        </p>
+      )}
+      <input type="hidden" name="kind" value={template?.kind ?? "EN_LIGNE"} />
+      <input type="hidden" name="estimatedMinutes" value={template?.minutes ?? ""} />
       <input
         name="title"
+        defaultValue={template?.title}
         placeholder="Titre de la mission"
         required
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
@@ -21,7 +35,7 @@ export default function CreateMissionForm() {
       <select
         name="category"
         required
-        defaultValue=""
+        defaultValue={template?.category ?? ""}
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       >
         <option value="" disabled>
@@ -34,10 +48,25 @@ export default function CreateMissionForm() {
         ))}
       </select>
       <textarea
+        name="description"
+        defaultValue={template?.summary}
+        placeholder="Résumé de la mission (une ou deux phrases, affiché sur la carte)"
+        rows={2}
+        className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
+      />
+      <textarea
         name="instructions"
-        placeholder="Instructions précises pour l'internaute"
+        defaultValue={template ? ideaInstructionsText(template) : undefined}
+        placeholder="Instructions précises pour l'internaute, une par ligne"
         required
-        rows={3}
+        rows={template ? 5 : 3}
+        className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
+      />
+
+      <input
+        name="proofRequired"
+        defaultValue={template?.proof}
+        placeholder="Preuve demandée (ex : capture d'écran, photo, lien)"
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       />
 
@@ -47,6 +76,7 @@ export default function CreateMissionForm() {
           type="number"
           step="1"
           min="1"
+          defaultValue={template?.suggestedReward}
           placeholder="Rémunération par internaute (FCFA)"
           required
           className="w-1/2 border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
@@ -65,7 +95,7 @@ export default function CreateMissionForm() {
           type="number"
           min="1"
           max="720"
-          defaultValue={24}
+          defaultValue={template?.deadlineHours ?? 24}
           title="Délai en heures"
           className="w-1/4 border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
         />

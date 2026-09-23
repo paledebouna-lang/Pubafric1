@@ -1,6 +1,11 @@
 import { User, Landmark } from "lucide-react";
+import { auth } from "@/auth";
+import { spaceHref, spaceLabel } from "@/lib/space";
 
-export default function Hero() {
+export default async function Hero() {
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <section className="relative overflow-hidden bg-brand-black">
       <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-[#3a2a1f]/95 to-[#1a120c]" />
@@ -22,24 +27,38 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className="mt-10 grid max-w-xl grid-cols-2 gap-4">
-            <a
-              href="/inscription"
-              className="flex flex-col items-center gap-3 bg-white/90 px-6 py-8 text-center transition-colors hover:bg-white"
-            >
-              <User size={36} className="text-[#5b6472]" strokeWidth={1.5} />
-              <span className="text-sm font-bold tracking-wide text-[#2b2f38]">INTERNAUTES</span>
-              <span className="text-xs text-[#6b7280]">Arrondissez vos fins de mois</span>
-            </a>
-            <a
-              href="/inscription"
-              className="flex flex-col items-center gap-3 bg-brand-red/90 px-6 py-8 text-center transition-colors hover:bg-brand-red"
-            >
-              <Landmark size={36} className="text-white" strokeWidth={1.5} />
-              <span className="text-sm font-bold tracking-wide text-white">ENTREPRISES</span>
-              <span className="text-xs text-white/85">Proposez vos missions</span>
-            </a>
-          </div>
+          {user ? (
+            <div className="mt-10 max-w-xl">
+              <p className="text-sm font-semibold text-white/90">
+                Bonjour {user.name}, vous êtes connecté.
+              </p>
+              <a
+                href={spaceHref(user.role)}
+                className="mt-4 inline-block bg-brand-gold px-8 py-4 text-sm font-bold tracking-wide text-white transition-colors hover:bg-brand-gold/90"
+              >
+                {spaceLabel(user.role)}
+              </a>
+            </div>
+          ) : (
+            <div className="mt-10 grid max-w-xl grid-cols-2 gap-4">
+              <a
+                href="/inscription"
+                className="flex flex-col items-center gap-3 bg-white/90 px-6 py-8 text-center transition-colors hover:bg-white"
+              >
+                <User size={36} className="text-[#5b6472]" strokeWidth={1.5} />
+                <span className="text-sm font-bold tracking-wide text-[#2b2f38]">INTERNAUTES</span>
+                <span className="text-xs text-[#6b7280]">Arrondissez vos fins de mois</span>
+              </a>
+              <a
+                href="/inscription"
+                className="flex flex-col items-center gap-3 bg-brand-red/90 px-6 py-8 text-center transition-colors hover:bg-brand-red"
+              >
+                <Landmark size={36} className="text-white" strokeWidth={1.5} />
+                <span className="text-sm font-bold tracking-wide text-white">ENTREPRISES</span>
+                <span className="text-xs text-white/85">Proposez vos missions</span>
+              </a>
+            </div>
+          )}
           <p className="mt-4 text-sm font-semibold text-white/90">Paiement par Mobile Money</p>
         </div>
 

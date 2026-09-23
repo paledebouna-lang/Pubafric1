@@ -11,11 +11,18 @@ import ClaimProof from "@/components/ClaimProof";
 import SlotsGauge from "@/components/SlotsGauge";
 import CountdownTimer from "@/components/CountdownTimer";
 import CreateMissionForm from "./CreateMissionForm";
+import { getIdea } from "@/lib/mission-ideas";
 import DecisionButtons from "./DecisionButtons";
 
 const OCCUPYING_STATUSES = ["EN_COURS", "SOUMISE", "VALIDEE"];
 
-export default async function EntrepriseMissionsPage() {
+export default async function EntrepriseMissionsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ modele?: string }>;
+}) {
+  const { modele } = await searchParams;
+  const template = modele ? getIdea(modele) : undefined;
   const session = await auth();
   if (!session?.user) redirect("/connexion");
   if (session.user.role !== "ENTREPRISE") redirect("/missions");
@@ -70,12 +77,18 @@ export default async function EntrepriseMissionsPage() {
         </Link>
       </div>
 
-      <section className="mt-8">
+      <section id="creer-mission" className="mt-8 scroll-mt-24">
         <h2 className="text-sm font-bold tracking-widest text-brand-red">
           PUBLIER UNE NOUVELLE MISSION
         </h2>
         <div className="mt-4">
-          <CreateMissionForm />
+          <CreateMissionForm template={template} />
+          <p className="mt-2 text-xs text-[#7c8797]">
+            Besoin d&apos;idées ?{" "}
+            <Link href="/exemples-de-missions" className="font-semibold text-brand-blue">
+              Parcourir les modèles de missions
+            </Link>
+          </p>
         </div>
       </section>
 

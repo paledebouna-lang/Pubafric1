@@ -10,7 +10,9 @@ import { MISSION_CATEGORIES, getCategory } from "@/lib/categories";
 import { parseMediaJson } from "@/lib/upload";
 import MediaGallery from "@/components/MediaGallery";
 import CountdownTimer from "@/components/CountdownTimer";
+import MissionCover from "@/components/MissionCover";
 import ClaimButton from "./ClaimButton";
+import RetractButton from "./RetractButton";
 import SubmitReportForm from "./SubmitReportForm";
 import DisputeForm from "./DisputeForm";
 
@@ -119,6 +121,7 @@ export default async function MissionsPage({
                     </p>
                   )}
                 {claim.status === "EN_COURS" && <SubmitReportForm claimId={claim.id} />}
+                {claim.status === "EN_COURS" && <RetractButton claimId={claim.id} />}
                 {claim.status === "REJETEE" &&
                   (claim.dispute ? (
                     <p className="mt-2 text-xs font-semibold text-brand-gold">
@@ -178,9 +181,15 @@ export default async function MissionsPage({
                 className="flex items-center justify-between gap-4 border border-border-soft bg-white p-4"
               >
                 <div className="flex items-start gap-3">
-                  <category.icon size={20} className="mt-0.5 shrink-0 text-brand-blue" strokeWidth={1.5} />
+                  <MissionCover
+                    variant={mission.category}
+                    label={category.label}
+                    className="hidden h-20 w-32 shrink-0 rounded sm:block"
+                  />
                   <div>
-                    <p className="text-sm font-semibold text-[#2b2f38]">{mission.title}</p>
+                    <Link href={`/mission/${mission.id}`} className="text-sm font-semibold text-[#2b2f38] hover:text-brand-blue hover:underline">
+                      {mission.title}
+                    </Link>
                     {mission.description && (
                       <p className="mt-1 max-w-lg text-xs text-[#2b2f38]">{mission.description}</p>
                     )}

@@ -14,7 +14,10 @@ import { GOOGLE_ENABLED, SIGNUP_COOKIE, parseSignupCookie } from "@/lib/google-s
 const unusablePasswordHash = () => bcrypt.hash(randomBytes(32).toString("hex"), 10);
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  session: { strategy: "jwt" },
+  // La session reste ouverte 30 jours sur l'appareil, même si l'on quitte le site ou ferme le
+  // navigateur ; elle est prolongée chaque jour d'utilisation.
+  session: { strategy: "jwt", maxAge: 30 * 24 * 60 * 60, updateAge: 24 * 60 * 60 },
+  trustHost: true,
   pages: { signIn: "/connexion" },
   providers: [
     ...(GOOGLE_ENABLED ? [Google] : []),
