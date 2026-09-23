@@ -11,7 +11,10 @@ const COLUMNS = [
   },
   {
     title: "NOUS CONNAÎTRE",
-    links: [{ label: "PubAFric en 7 questions", href: "/a-propos" }],
+    links: [
+      { label: "Comment ça marche", href: "/comment-ca-marche" },
+      { label: "PubAFric en 7 questions", href: "/a-propos" },
+    ],
   },
   {
     title: "LÉGAL",
