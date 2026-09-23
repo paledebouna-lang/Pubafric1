@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="512" height="512" role="img" aria-label="PubAfric">
+  <title>PubAfric</title>
+  <rect width="120" height="120" rx="28" fill="#22160f"/>
+  <rect x="22" y="18" width="76" height="56" rx="16" fill="#e8792b"/>
+  <polygon points="40,72 40,92 60,72" fill="#e8792b"/>
+  <polyline points="42,46 54,58 78,32" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="22" y="101" width="26" height="6" rx="3" fill="#1e7a45"/>
+  <rect x="47" y="101" width="26" height="6" fill="#f0a90f"/>
+  <rect x="72" y="101" width="26" height="6" rx="3" fill="#b5232a"/>
+</svg>

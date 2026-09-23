@@ -18,7 +18,7 @@ export default async function PressePage() {
     { label: "Entreprises partenaires", value: entrepriseCount.toLocaleString("fr-FR") },
     { label: "Missions publiées", value: missionCount.toLocaleString("fr-FR") },
     { label: "Missions réalisées", value: validatedClaims.toLocaleString("fr-FR") },
-    { label: "Reversé aux internautes", value: formatMoney(paidOut._sum.amountCents ?? 0, "EUR") },
+    { label: "Reversé aux internautes", value: formatMoney(paidOut._sum.amountCents ?? 0) },
   ];
 
   return (

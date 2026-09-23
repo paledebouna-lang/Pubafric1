@@ -5,6 +5,9 @@ import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import { buildMissionPaymentOps } from "@/lib/payments";
+import { parseFcfa } from "@/lib/currency";
+import { importKitMissions, type ImportReport, type KitFile } from "@/lib/seed-missions";
+import kitFile from "../../../pubafric-kit/missions.json";
 
 export type ActionState = { error?: string; success?: string };
 
@@ -240,26 +243,23 @@ export async function createAdminMission(
 
   const title = (formData.get("title") as string)?.trim();
   const instructions = (formData.get("instructions") as string)?.trim();
-  const rewardEuros = parseFloat(formData.get("reward") as string);
+  const rewardFcfa = parseFcfa(formData.get("reward"));
   const category = formData.get("category") as string;
   const slotsTotal = parseInt(formData.get("slotsTotal") as string, 10) || 1;
   const deadlineHours = parseInt(formData.get("deadlineHours") as string, 10) || 24;
 
   if (!title || !instructions) return { error: "Merci de remplir tous les champs." };
-  if (!rewardEuros || rewardEuros <= 0) return { error: "Rémunération invalide." };
+  if (!rewardFcfa) return { error: "Rémunération invalide (montant entier en FCFA)." };
   if (!MISSION_CATEGORIES.some((c) => c.value === category)) {
     return { error: "Catégorie invalide." };
   }
-
-  const owner = await prisma.user.findUniqueOrThrow({ where: { id: admin.id } });
 
   await prisma.mission.create({
     data: {
       title,
       instructions,
       category,
-      currency: owner.currency,
-      rewardCents: Math.round(rewardEuros * 100),
+      rewardCents: rewardFcfa,
       slotsTotal,
       deadlineHours,
       ownerId: admin.id,
@@ -268,6 +268,47 @@ export async function createAdminMission(
 
   revalidatePath("/admin");
   return { success: "Mission publiée par PubAFric." };
+}
+
+export async function publishMission(
+  _prev: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  const admin = await requireAdmin();
+  if (!admin) return { error: "Non autorisé." };
+
+  const missionId = formData.get("missionId") as string;
+  const mission = await prisma.mission.findUnique({ where: { id: missionId } });
+  if (!mission || mission.status !== "BROUILLON") {
+    return { error: "Cette mission n'est pas un brouillon." };
+  }
+  await prisma.mission.update({ where: { id: missionId }, data: { status: "OUVERTE" } });
+  revalidatePath("/admin");
+  revalidatePath("/missions");
+  revalidatePath("/toutes-les-missions");
+  revalidatePath("/");
+  return {};
+}
+
+export type ImportState = { error?: string; report?: ImportReport };
+
+// Bouton « Aperçu » (mode=preview : aucune écriture) ou « Importer » (mode=import :
+// crée les missions en brouillon). Même logique que scripts/seed-missions.ts.
+export async function importPubafricMissions(
+  _prev: ImportState,
+  formData: FormData
+): Promise<ImportState> {
+  const admin = await requireAdmin();
+  if (!admin) return { error: "Non autorisé." };
+
+  const dryRun = formData.get("mode") !== "import";
+  try {
+    const report = await importKitMissions(prisma, kitFile as KitFile, { dryRun });
+    if (!dryRun) revalidatePath("/admin");
+    return { report };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Import impossible." };
+  }
 }
 
 export async function archiveMission(

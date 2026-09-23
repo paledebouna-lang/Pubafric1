@@ -3,9 +3,9 @@
 import { useActionState } from "react";
 import { requestDeposit, type ActionState } from "./actions";
 
-const PRESETS = [10, 25, 50, 100];
+const PRESETS = [5000, 10000, 25000, 50000];
 
-export default function BuyCreditsForm({ currencySymbol }: { currencySymbol: string }) {
+export default function BuyCreditsForm() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     requestDeposit,
     {}
@@ -22,7 +22,7 @@ export default function BuyCreditsForm({ currencySymbol }: { currencySymbol: str
             value={amount}
             className="rounded-full border border-border-soft px-4 py-1 text-xs font-bold text-[#2b2f38] hover:border-brand-blue"
           >
-            +{amount} {currencySymbol}
+            +{amount.toLocaleString("fr-FR")} FCFA
           </button>
         ))}
       </div>
@@ -30,9 +30,9 @@ export default function BuyCreditsForm({ currencySymbol }: { currencySymbol: str
       <input
         name="amount"
         type="number"
-        step="0.01"
+        step="1"
         min="1"
-        placeholder={`Ou montant personnalisé (${currencySymbol})`}
+        placeholder="Ou montant personnalisé (FCFA)"
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       />
 

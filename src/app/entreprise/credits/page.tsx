@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { formatMoney, CURRENCIES } from "@/lib/currency";
+import { formatMoney } from "@/lib/currency";
 import {
   TRANSACTION_TYPE_LABEL,
   TRANSACTION_STATUS_LABEL,
@@ -24,8 +24,6 @@ export default async function EntrepriseCreditsPage() {
     }),
   ]);
 
-  const currencySymbol = CURRENCIES.find((c) => c.code === user.currency)?.symbol ?? "€";
-
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
       <h1 className="text-2xl font-extrabold text-[#2b2f38]">Mon portefeuille entreprise</h1>
@@ -33,7 +31,7 @@ export default async function EntrepriseCreditsPage() {
       <div className="mt-6 bg-brand-red px-6 py-8 text-center text-white">
         <p className="text-xs font-bold tracking-widest">CRÉDITS DISPONIBLES</p>
         <p className="mt-2 text-4xl font-extrabold">
-          {formatMoney(user.walletCents, user.currency)}
+          {formatMoney(user.walletCents)}
         </p>
         <p className="mt-1 text-xs text-white/80">
           Débités automatiquement à chaque validation de mission. Dépôts et retraits sont
@@ -44,14 +42,14 @@ export default async function EntrepriseCreditsPage() {
       <section className="mt-8">
         <h2 className="text-sm font-bold tracking-widest text-brand-red">DEMANDER UN DÉPÔT</h2>
         <div className="mt-4">
-          <BuyCreditsForm currencySymbol={currencySymbol} />
+          <BuyCreditsForm />
         </div>
       </section>
 
       <section className="mt-8">
         <h2 className="text-sm font-bold tracking-widest text-brand-red">DEMANDER UN RETRAIT</h2>
         <div className="mt-4">
-          <WithdrawalForm currencySymbol={currencySymbol} />
+          <WithdrawalForm />
         </div>
       </section>
 
@@ -89,7 +87,7 @@ export default async function EntrepriseCreditsPage() {
                 }
               >
                 {t.amountCents >= 0 ? "+" : ""}
-                {formatMoney(t.amountCents, user.currency)}
+                {formatMoney(t.amountCents)}
               </span>
             </div>
           ))}

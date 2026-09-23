@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { formatMoney, CURRENCIES } from "@/lib/currency";
+import { formatMoney } from "@/lib/currency";
 import { ENTREPRISE_FEE_RATE } from "@/lib/payments";
 import { getCategory } from "@/lib/categories";
 import { parseMediaJson } from "@/lib/upload";
@@ -66,7 +66,7 @@ export default async function EntrepriseMissionsPage() {
           href="/entreprise/credits"
           className="shrink-0 rounded-full bg-brand-red px-4 py-2 text-xs font-bold text-white"
         >
-          {formatMoney(owner.walletCents, owner.currency)} de crédits
+          {formatMoney(owner.walletCents)} de crédits
         </Link>
       </div>
 
@@ -75,9 +75,7 @@ export default async function EntrepriseMissionsPage() {
           PUBLIER UNE NOUVELLE MISSION
         </h2>
         <div className="mt-4">
-          <CreateMissionForm
-            currencySymbol={CURRENCIES.find((c) => c.code === owner.currency)?.symbol ?? "€"}
-          />
+          <CreateMissionForm />
         </div>
       </section>
 
@@ -101,7 +99,7 @@ export default async function EntrepriseMissionsPage() {
                       <p className="text-sm font-semibold text-[#2b2f38]">{claim.mission.title}</p>
                       <p className="mt-1 text-xs text-[#9aa2b1]">
                         Par {claim.user.name} ·{" "}
-                        {formatMoney(claim.mission.rewardCents, claim.mission.currency)}
+                        {formatMoney(claim.mission.rewardCents)}
                       </p>
                       <p className="mt-2 max-w-md text-sm text-[#2b2f38]">{claim.report}</p>
                       <MediaGallery items={reportMedia} />
@@ -168,7 +166,7 @@ export default async function EntrepriseMissionsPage() {
                   <div>
                     <p className="text-sm font-semibold text-[#2b2f38]">{mission.title}</p>
                     <p className="mt-1 text-xs text-[#9aa2b1]">
-                      {mission.status === "ARCHIVEE" ? "Archivée" : "Ouverte"} · délai{" "}
+                      {mission.status === "ARCHIVEE" ? "Archivée" : mission.status === "BROUILLON" ? "Brouillon (non publiée)" : "Ouverte"} · délai{" "}
                       {mission.deadlineHours}h
                     </p>
                     <div className="mt-2">
@@ -178,7 +176,7 @@ export default async function EntrepriseMissionsPage() {
                   </div>
                 </div>
                 <span className="shrink-0 rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-bold text-brand-teal">
-                  {formatMoney(mission.rewardCents, mission.currency)}
+                  {formatMoney(mission.rewardCents)}
                 </span>
               </div>
             );

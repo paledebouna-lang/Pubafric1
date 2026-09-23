@@ -1,11 +1,18 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { REFERRAL_COMMISSION_RATE } from "@/lib/referral";
+import { REFERRAL_COMMISSION_PERCENT } from "@/lib/referral";
+import { entrepriseCost, internauteNet } from "@/lib/fees";
 
-// PubAFric's cut: 15% on money entreprises pay out for missions, 10% on what
-// internautes earn. Both are real ledger deductions (not just display copy).
-export const ENTREPRISE_FEE_RATE = 0.15;
-export const INTERNAUTE_FEE_RATE = 0.1;
+// Les frais vivent dans fees.ts (calcul pur, sans base de données) ; ré-exportés ici
+// pour les pages qui les importaient déjà depuis payments.
+export {
+  ENTREPRISE_FEE_PERCENT,
+  INTERNAUTE_FEE_PERCENT,
+  ENTREPRISE_FEE_RATE,
+  INTERNAUTE_FEE_RATE,
+  entrepriseCost,
+  internauteNet,
+} from "@/lib/fees";
 
 // The admin account acts as PubAFric's own treasury — platform fees accumulate
 // on its wallet, visible to the admin in the users list and transaction feed.
@@ -40,8 +47,8 @@ export async function buildMissionPaymentOps({
   const platformId = await getPlatformAccountId();
 
   if (entrepriseId) {
-    const entrepriseFee = Math.round(rewardCents * ENTREPRISE_FEE_RATE);
-    const entrepriseDebit = rewardCents + entrepriseFee;
+    const entrepriseDebit = entrepriseCost(rewardCents);
+    const entrepriseFee = entrepriseDebit - rewardCents;
     ops.push(
       prisma.user.update({
         where: { id: entrepriseId },
@@ -74,8 +81,8 @@ export async function buildMissionPaymentOps({
     }
   }
 
-  const internauteFee = Math.round(rewardCents * INTERNAUTE_FEE_RATE);
-  const internauteCredit = rewardCents - internauteFee;
+  const internauteCredit = internauteNet(rewardCents);
+  const internauteFee = rewardCents - internauteCredit;
 
   ops.push(
     prisma.user.update({
@@ -113,7 +120,7 @@ export async function buildMissionPaymentOps({
     select: { referredById: true, name: true },
   });
   if (internaute?.referredById) {
-    const referralBonus = Math.round(internauteCredit * REFERRAL_COMMISSION_RATE);
+    const referralBonus = Math.round((internauteCredit * REFERRAL_COMMISSION_PERCENT) / 100);
     if (referralBonus > 0) {
       ops.push(
         prisma.user.update({

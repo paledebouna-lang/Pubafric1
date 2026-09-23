@@ -2,8 +2,9 @@
 
 import { useActionState } from "react";
 import { requestPayout, type ActionState } from "./actions";
+import { MIN_PAYOUT_FCFA } from "@/lib/rules";
 
-export default function PayoutForm({ currencySymbol = "€" }: { currencySymbol?: string }) {
+export default function PayoutForm() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(requestPayout, {});
 
   return (
@@ -11,9 +12,9 @@ export default function PayoutForm({ currencySymbol = "€" }: { currencySymbol?
       <input
         name="amount"
         type="number"
-        step="0.01"
-        min="0.01"
-        placeholder={`Montant à retirer (${currencySymbol})`}
+        step="1"
+        min={MIN_PAYOUT_FCFA}
+        placeholder={`Montant à retirer en FCFA (minimum ${MIN_PAYOUT_FCFA.toLocaleString("fr-FR")})`}
         required
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       />

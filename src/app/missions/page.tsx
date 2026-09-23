@@ -104,7 +104,7 @@ export default async function MissionsPage({
                     </div>
                   </div>
                   <span className="shrink-0 rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-bold text-brand-teal">
-                    {formatMoney(claim.mission.rewardCents, claim.mission.currency)}
+                    {formatMoney(claim.mission.rewardCents)}
                   </span>
                 </div>
                 {claim.status === "EN_COURS" &&
@@ -181,7 +181,27 @@ export default async function MissionsPage({
                   <category.icon size={20} className="mt-0.5 shrink-0 text-brand-blue" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm font-semibold text-[#2b2f38]">{mission.title}</p>
-                    <p className="mt-1 max-w-lg text-xs text-[#7c8797]">{mission.instructions}</p>
+                    {mission.description && (
+                      <p className="mt-1 max-w-lg text-xs text-[#2b2f38]">{mission.description}</p>
+                    )}
+                    <p className="mt-1 max-w-lg whitespace-pre-line text-xs text-[#7c8797]">
+                      {mission.instructions}
+                    </p>
+                    {mission.proofRequired && (
+                      <p className="mt-1 max-w-lg text-xs text-[#7c8797]">
+                        <span className="font-semibold">Preuve demandée :</span>{" "}
+                        {mission.proofRequired}
+                      </p>
+                    )}
+                    {(mission.estimatedMinutes || mission.locationLabel) && (
+                      <p className="mt-1 max-w-lg text-xs text-[#7c8797]">
+                        {mission.estimatedMinutes ? `≈ ${mission.estimatedMinutes} min` : ""}
+                        {mission.estimatedMinutes && mission.locationLabel ? " · " : ""}
+                        {mission.kind === "TERRAIN"
+                          ? `Sur le terrain${mission.locationLabel ? ` — ${mission.locationLabel}` : ""}`
+                          : (mission.locationLabel ?? "En ligne")}
+                      </p>
+                    )}
                     <p className="mt-1 text-xs text-[#9aa2b1]">
                       Proposée par {mission.owner.name} · {occupied}/{mission.slotsTotal} place
                       {mission.slotsTotal > 1 ? "s" : ""} · délai {mission.deadlineHours}h
@@ -204,7 +224,7 @@ export default async function MissionsPage({
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-bold text-brand-teal">
-                    {formatMoney(mission.rewardCents, mission.currency)}
+                    {formatMoney(mission.rewardCents)}
                   </span>
                   <ClaimButton missionId={mission.id} />
                 </div>

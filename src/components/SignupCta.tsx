@@ -11,7 +11,7 @@ export default function SignupCta() {
         <p className="mx-auto mt-4 max-w-2xl text-sm text-[#7c8797]">
           Vous êtes une entreprise ? Il est temps de vous faciliter la vie pour confier vos
           micro-tâches aux internautes disponibles... Vous êtes un internaute qui a du temps et
-          un ordinateur ? Rejoignez la communauté des Taskers PubAFric et gagnez de l'argent dès
+          un téléphone ? Rejoignez la communauté des internautes PubAFric et gagnez de l&apos;argent dès
           maintenant en accomplissant vos premières missions.
         </p>
 
@@ -34,6 +34,7 @@ export default function SignupCta() {
             <span className="text-xs text-[#6b7280]">Proposez vos missions</span>
           </a>
         </div>
+        <p className="mt-6 text-sm font-semibold text-[#2b2f38]">Paiement par Mobile Money</p>
       </div>
     </section>
   );

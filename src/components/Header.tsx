@@ -13,14 +13,9 @@ export default async function Header() {
   return (
     <header className="sticky top-0 z-50 border-b-4 border-brand-red bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex flex-col leading-none">
-          <span className="flex items-center gap-1 text-2xl font-extrabold tracking-tight">
-            <span className="text-brand-red">P</span>
-            <span className="text-[#2b2f38]">ubAFric</span>
-          </span>
-          <span className="mt-0.5 hidden text-[10px] font-semibold uppercase tracking-widest text-brand-gold sm:block">
-            Vos missions, votre Afrique
-          </span>
+        <Link href="/" className="flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo.svg" alt="PubAfric" width={160} height={40} className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-semibold tracking-wide text-[#2b2f38] md:flex">
@@ -31,11 +26,11 @@ export default async function Header() {
               </a>
             ))}
           <Link href="/toutes-les-missions" className="transition-colors hover:text-brand-red">
-            MICROS MISSIONS
+            MISSIONS
           </Link>
           {session?.user?.role !== "INTERNAUTE" && (
             <Link href="/taskers" className="transition-colors hover:text-brand-red">
-              NOS TASKERS
+              NOS INTERNAUTES
             </Link>
           )}
           <Link href="/partenaires" className="transition-colors hover:text-brand-red">

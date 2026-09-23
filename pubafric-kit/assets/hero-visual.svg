@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800" role="img" aria-label="Un téléphone affichant des missions PubAfric payées en FCFA">
+  <title>Missions PubAfric sur téléphone</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b1c13"/>
+      <stop offset="1" stop-color="#170e09"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.45" r="0.55">
+      <stop offset="0" stop-color="#e8792b" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#e8792b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd25a"/>
+      <stop offset="1" stop-color="#f0a90f"/>
+    </linearGradient>
+    <pattern id="diamonds" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M28 4 L52 28 L28 52 L4 28 Z" fill="none" stroke="#f0a90f" stroke-opacity="0.16" stroke-width="2"/>
+      <path d="M28 18 L38 28 L28 38 L18 28 Z" fill="#1e7a45" fill-opacity="0.16"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <clipPath id="screen"><rect x="352" y="112" width="296" height="576" rx="30"/></clipPath>
+  </defs>
+
+  <rect width="1000" height="800" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1000" height="800" fill="url(#diamonds)"/>
+  <ellipse cx="500" cy="380" rx="470" ry="400" fill="url(#glow)"/>
+
+  <!-- skyline (silhouette générique) -->
+  <g fill="#3a261b" opacity="0.9">
+    <rect x="0"   y="610" width="70"  height="190"/>
+    <rect x="70"  y="560" width="56"  height="240"/>
+    <rect x="126" y="640" width="80"  height="160"/>
+    <rect x="206" y="520" width="50"  height="280"/>
+    <rect x="256" y="600" width="70"  height="200"/>
+    <rect x="674" y="590" width="62"  height="210"/>
+    <rect x="736" y="500" width="58"  height="300"/>
+    <rect x="794" y="620" width="78"  height="180"/>
+    <rect x="872" y="550" width="56"  height="250"/>
+    <rect x="928" y="640" width="72"  height="160"/>
+  </g>
+  <g fill="#f0a90f" opacity="0.5">
+    <rect x="216" y="545" width="8" height="8"/><rect x="232" y="545" width="8" height="8"/>
+    <rect x="216" y="575" width="8" height="8"/><rect x="232" y="605" width="8" height="8"/>
+    <rect x="746" y="530" width="8" height="8"/><rect x="764" y="560" width="8" height="8"/>
+    <rect x="746" y="590" width="8" height="8"/><rect x="882" y="580" width="8" height="8"/>
+  </g>
+
+  <!-- téléphone -->
+  <g filter="url(#shadow)">
+    <rect x="336" y="96" width="328" height="608" rx="44" fill="#0f0906" stroke="#4a3324" stroke-width="3"/>
+  </g>
+  <rect x="352" y="112" width="296" height="576" rx="30" fill="#faf6f0"/>
+  <g clip-path="url(#screen)">
+    <!-- en-tête -->
+    <rect x="352" y="112" width="296" height="70" fill="#ffffff"/>
+    <rect x="372" y="134" width="30" height="30" rx="8" fill="#22160f"/>
+    <rect x="378" y="140" width="18" height="13" rx="4" fill="#e8792b"/>
+    <polyline points="382,146 386,150 393,142" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="410" y="157" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="800"><tspan fill="#22160f">Pub</tspan><tspan fill="#e8792b">Afric</tspan></text>
+    <rect x="352" y="182" width="296" height="4" fill="#1e7a45"/>
+    <rect x="352" y="182" width="99" height="4" fill="#1e7a45"/>
+    <rect x="451" y="182" width="99" height="4" fill="#f0a90f"/>
+    <rect x="550" y="182" width="98" height="4" fill="#b5232a"/>
+
+    <!-- carte solde -->
+    <rect x="372" y="206" width="256" height="104" rx="18" fill="#1e7a45"/>
+    <text x="392" y="236" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#cfeedd" letter-spacing="1">MON SOLDE</text>
+    <text x="392" y="278" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="38" font-weight="800" fill="#ffffff">3 250 <tspan font-size="20">FCFA</tspan></text>
+    <rect x="392" y="288" width="140" height="6" rx="3" fill="#ffffff" fill-opacity="0.25"/>
+    <rect x="392" y="288" width="94" height="6" rx="3" fill="#ffd25a"/>
+
+    <text x="372" y="342" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="800" fill="#22160f" letter-spacing="1">MISSIONS DU JOUR</text>
+
+    <!-- mission 1 -->
+    <rect x="372" y="356" width="256" height="82" rx="16" fill="#ffffff" stroke="#eadfd3"/>
+    <circle cx="406" cy="397" r="20" fill="#fdebdc"/>
+    <rect x="396" y="388" width="20" height="14" rx="3" fill="none" stroke="#e8792b" stroke-width="3"/>
+    <circle cx="406" cy="395" r="3.5" fill="#e8792b"/>
+    <text x="438" y="388" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="800" fill="#22160f">Filmer un marché</text>
+    <text x="438" y="408" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="12" fill="#7a6a5e">Abidjan · 30 min</text>
+    <rect x="438" y="416" width="98" height="16" rx="8" fill="#e6f3ec"/>
+    <text x="487" y="428" text-anchor="middle" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="800" fill="#1e7a45">+1 000 FCFA</text>
+
+    <!-- mission 2 -->
+    <rect x="372" y="450" width="256" height="82" rx="16" fill="#ffffff" stroke="#eadfd3"/>
+    <circle cx="406" cy="491" r="20" fill="#e3eaf5"/>
+    <path d="M396 500 L406 480 L416 500 Z" fill="none" stroke="#2e4a7d" stroke-width="3" stroke-linejoin="round"/>
+    <text x="438" y="482" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="800" fill="#22160f">Distribuer 50 flyers</text>
+    <text x="438" y="502" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="12" fill="#7a6a5e">Cocody · 2 h</text>
+    <rect x="438" y="510" width="98" height="16" rx="8" fill="#e6f3ec"/>
+    <text x="487" y="522" text-anchor="middle" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="800" fill="#1e7a45">+3 000 FCFA</text>
+
+    <!-- mission 3 -->
+    <rect x="372" y="544" width="256" height="82" rx="16" fill="#ffffff" stroke="#eadfd3"/>
+    <circle cx="406" cy="585" r="20" fill="#f6dfe0"/>
+    <path d="M396 586 L403 593 L417 577" fill="none" stroke="#b5232a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="438" y="576" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="800" fill="#22160f">Partager en statut</text>
+    <text x="438" y="596" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="12" fill="#7a6a5e">WhatsApp · 10 min</text>
+    <rect x="438" y="604" width="86" height="16" rx="8" fill="#e6f3ec"/>
+    <text x="481" y="616" text-anchor="middle" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="800" fill="#1e7a45">+200 FCFA</text>
+
+    <!-- bouton -->
+    <rect x="372" y="640" width="256" height="34" rx="17" fill="#e8792b"/>
+    <text x="500" y="662" text-anchor="middle" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="800" fill="#ffffff">Retirer par Mobile Money</text>
+  </g>
+  <rect x="470" y="104" width="60" height="10" rx="5" fill="#0f0906"/>
+
+  <!-- pièces flottantes -->
+  <g>
+    <circle cx="238" cy="250" r="46" fill="url(#coin)" stroke="#b97d06" stroke-width="4"/>
+    <circle cx="238" cy="250" r="34" fill="none" stroke="#b97d06" stroke-opacity="0.6" stroke-width="2.5"/>
+    <text x="238" y="258" text-anchor="middle" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="800" fill="#7a4d00">FCFA</text>
+    <circle cx="756" cy="420" r="34" fill="url(#coin)" stroke="#b97d06" stroke-width="3.5"/>
+    <text x="756" y="428" text-anchor="middle" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#7a4d00">FCFA</text>
+    <circle cx="150" cy="470" r="22" fill="url(#coin)" stroke="#b97d06" stroke-width="3"/>
+    <circle cx="820" cy="190" r="18" fill="url(#coin)" stroke="#b97d06" stroke-width="3"/>
+  </g>
+
+  <!-- pastilles -->
+  <g>
+    <g transform="translate(112,340) rotate(-6)">
+      <rect width="230" height="62" rx="31" fill="#ffffff"/>
+      <circle cx="34" cy="31" r="18" fill="#1e7a45"/>
+      <polyline points="25,31 32,38 44,24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="64" y="28" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="800" fill="#22160f">Mission validée</text>
+      <text x="64" y="47" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#7a6a5e">+2 700 FCFA reçus</text>
+    </g>
+    <g transform="translate(628,262) rotate(5)">
+      <rect width="250" height="62" rx="31" fill="#e8792b"/>
+      <circle cx="34" cy="31" r="18" fill="#ffffff" fill-opacity="0.25"/>
+      <path d="M34 20 C27 20 23 25 23 30 C23 37 34 46 34 46 C34 46 45 37 45 30 C45 25 41 20 34 20 Z" fill="#ffffff"/>
+      <circle cx="34" cy="30" r="4" fill="#e8792b"/>
+      <text x="64" y="28" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="800" fill="#ffffff">Missions à Abidjan</text>
+      <text x="64" y="47" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#ffe9d6">et partout en Côte d'Ivoire</text>
+    </g>
+  </g>
+
+  <!-- bande tricolore -->
+  <rect x="0" y="780" width="334" height="20" fill="#1e7a45"/>
+  <rect x="334" y="780" width="333" height="20" fill="#f0a90f"/>
+  <rect x="667" y="780" width="333" height="20" fill="#b5232a"/>
+</svg>

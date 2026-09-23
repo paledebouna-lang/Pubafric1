@@ -1,15 +1,17 @@
 import { ClipboardList, Settings, ThumbsUp, Banknote } from "lucide-react";
+import { formatMoney } from "@/lib/currency";
+import { MIN_PAYOUT_FCFA } from "@/lib/rules";
 
 const STEPS = [
   {
     icon: ClipboardList,
-    title: "1. L'entreprise propose une micro mission",
+    title: "1. L'entreprise propose une mission",
     text: "Exemple : tester un produit, faire une visite terrain, relayer un lancement, prendre une photo, copier-coller des textes...",
   },
   {
     icon: Settings,
     title: "2. L'internaute disponible l'effectue",
-    text: "Chaque micro-mission est faisable de chez soi ou près de chez soi : il suffit d'avoir un ordinateur et un peu de temps.",
+    text: "Chaque micro-mission est faisable de chez soi ou près de chez soi : il suffit d'avoir un téléphone et un peu de temps.",
   },
   {
     icon: ThumbsUp,
@@ -19,7 +21,7 @@ const STEPS = [
   {
     icon: Banknote,
     title: "4. L'internaute cumule et reçoit l'argent",
-    text: "Une fois validé, PubAFric crédite les comptes des internautes. L'argent est reversé à partir de 5 euros cumulés.",
+    text: `Une fois validé, PubAFric crédite les comptes des internautes. L'argent est reversé à partir de ${formatMoney(MIN_PAYOUT_FCFA)} cumulés.`,
   },
 ];
 

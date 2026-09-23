@@ -28,12 +28,12 @@ export default async function TaskersPage() {
         [ LA COMMUNAUTÉ PUBAFRIC ]
       </p>
       <h1 className="mt-4 text-center text-2xl font-extrabold text-brand-blue md:text-3xl">
-        DÉCOUVREZ TOUS NOS TASKERS
+        DÉCOUVREZ TOUS NOS INTERNAUTES
       </h1>
 
       {ranked.length === 0 && (
         <p className="mt-10 text-center text-sm text-[#7c8797]">
-          Aucun tasker inscrit pour le moment — soyez le premier !
+          Aucun internaute inscrit pour le moment — soyez le premier !
         </p>
       )}
 

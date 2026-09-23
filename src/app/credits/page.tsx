@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { formatMoney, CURRENCIES } from "@/lib/currency";
+import { formatMoney } from "@/lib/currency";
 import {
   TRANSACTION_TYPE_LABEL,
   TRANSACTION_STATUS_LABEL,
@@ -30,7 +30,7 @@ export default async function CreditsPage() {
       <div className="mt-6 bg-brand-blue px-6 py-8 text-center text-white">
         <p className="text-xs font-bold tracking-widest">SOLDE CUMULÉ</p>
         <p className="mt-2 text-4xl font-extrabold">
-          {formatMoney(user.walletCents, user.currency)}
+          {formatMoney(user.walletCents)}
         </p>
         <p className="mt-1 text-xs text-white/80">
           Chaque demande de retrait est examinée par un administrateur PubAFric, qui
@@ -43,9 +43,7 @@ export default async function CreditsPage() {
           DEMANDER UN RETRAIT
         </h2>
         <div className="mt-4">
-          <PayoutForm
-            currencySymbol={CURRENCIES.find((c) => c.code === user.currency)?.symbol ?? "€"}
-          />
+          <PayoutForm />
         </div>
       </section>
 
@@ -83,7 +81,7 @@ export default async function CreditsPage() {
                 }
               >
                 {t.amountCents >= 0 ? "+" : ""}
-                {formatMoney(t.amountCents, user.currency)}
+                {formatMoney(t.amountCents)}
               </span>
             </div>
           ))}

@@ -42,7 +42,7 @@ export default function ClaimProof({
       {handles.length > 0 ? (
         <p className="mt-1">Comptes déclarés : {handles.join(" · ")}</p>
       ) : (
-        <p className="mt-1">Aucun compte social déclaré par ce tasker.</p>
+        <p className="mt-1">Aucun compte social déclaré par cet internaute.</p>
       )}
     </div>
   );

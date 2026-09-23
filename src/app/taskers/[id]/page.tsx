@@ -43,7 +43,7 @@ export default async function TaskerProfilePage({
         </div>
         <h1 className="mt-4 text-xl font-extrabold text-[#2b2f38]">{tasker.name}</h1>
         <p className="mt-1 text-xs text-[#9aa2b1]">
-          Tasker depuis{" "}
+          Internaute depuis{" "}
           {tasker.createdAt.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}
         </p>
         <p className="mt-3 rounded-full bg-brand-teal/10 px-4 py-1 text-sm font-bold text-brand-teal">

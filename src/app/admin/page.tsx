@@ -6,6 +6,9 @@ import { getCategory } from "@/lib/categories";
 import BanButton from "./BanButton";
 import DisputeDecisionButtons from "./DisputeDecisionButtons";
 import ArchiveButton from "./ArchiveButton";
+import PublishButton from "./PublishButton";
+import ImportMissionsPanel from "./ImportMissionsPanel";
+import { PUBAFRIC_ACCOUNT_EMAIL } from "@/lib/seed-missions";
 import AdminMissionForm from "./AdminMissionForm";
 import AnnouncementForm from "./AnnouncementForm";
 import AnnouncementToggle from "./AnnouncementToggle";
@@ -18,6 +21,12 @@ import {
   TRANSACTION_STATUS_LABEL,
   TRANSACTION_STATUS_COLOR,
 } from "@/lib/transactions";
+
+const MISSION_STATUS_LABEL: Record<string, string> = {
+  BROUILLON: "Brouillon (non publiée)",
+  OUVERTE: "Ouverte",
+  ARCHIVEE: "Archivée",
+};
 
 const ROLE_LABEL: Record<string, string> = {
   INTERNAUTE: "Internaute",
@@ -55,7 +64,7 @@ export default async function AdminPage() {
       }),
       prisma.mission.findMany({
         orderBy: { createdAt: "desc" },
-        take: 30,
+        take: 100,
         include: { owner: { select: { name: true, role: true } } },
       }),
       prisma.announcement.findMany({ orderBy: { createdAt: "desc" } }),
@@ -147,7 +156,7 @@ export default async function AdminPage() {
                     }`}
                   >
                     {t.amountCents >= 0 ? "+" : ""}
-                    {formatMoney(t.amountCents, t.user.currency)}
+                    {formatMoney(t.amountCents)}
                   </p>
                 </div>
                 <TransactionDecisionButtons transactionId={t.id} />
@@ -194,7 +203,7 @@ export default async function AdminPage() {
                 }`}
               >
                 {t.amountCents >= 0 ? "+" : ""}
-                {formatMoney(t.amountCents, t.user.currency)}
+                {formatMoney(t.amountCents)}
               </span>
             </div>
           ))}
@@ -216,7 +225,7 @@ export default async function AdminPage() {
                   <p className="text-sm font-semibold text-[#2b2f38]">{d.claim.mission.title}</p>
                   <p className="mt-1 text-xs text-[#9aa2b1]">
                     {d.claim.user.name} vs {d.claim.mission.owner.name} ·{" "}
-                    {formatMoney(d.claim.mission.rewardCents, d.claim.mission.currency)}
+                    {formatMoney(d.claim.mission.rewardCents)}
                   </p>
                   <p className="mt-2 text-sm text-[#2b2f38]">
                     <span className="font-semibold">Motif : </span>
@@ -292,7 +301,7 @@ export default async function AdminPage() {
                       {u.profession && <p>Profession : {u.profession}</p>}
                       {u.whatsapp && <p>WhatsApp : {u.whatsapp}</p>}
                       <p className="font-semibold text-brand-teal">
-                        Solde : {formatMoney(u.walletCents, u.currency)}
+                        Solde : {formatMoney(u.walletCents)}
                       </p>
                       {u.referralCode && (
                         <p>
@@ -349,7 +358,7 @@ export default async function AdminPage() {
                       {u.location && <p>Lieu : {u.location}</p>}
                       {u.whatsapp && <p>WhatsApp : {u.whatsapp}</p>}
                       <p className="font-semibold text-brand-teal">
-                        Solde : {formatMoney(u.walletCents, u.currency)}
+                        Solde : {formatMoney(u.walletCents)}
                       </p>
                     </div>
                   </div>
@@ -361,6 +370,15 @@ export default async function AdminPage() {
           {entreprises.length === 0 && (
             <p className="text-sm text-[#7c8797]">Aucune entreprise inscrite.</p>
           )}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-sm font-bold tracking-widest text-brand-red">
+          IMPORTER LES MISSIONS DU KIT PUBAFRIC
+        </h2>
+        <div className="mt-4">
+          <ImportMissionsPanel accountEmail={PUBAFRIC_ACCOUNT_EMAIL} />
         </div>
       </section>
 
@@ -388,7 +406,7 @@ export default async function AdminPage() {
                   <p className="text-sm font-semibold text-[#2b2f38]">{claim.mission.title}</p>
                   <p className="mt-1 text-xs text-[#9aa2b1]">
                     Par {claim.user.name} ·{" "}
-                    {formatMoney(claim.mission.rewardCents, claim.mission.currency)}
+                    {formatMoney(claim.mission.rewardCents)}
                   </p>
                   <p className="mt-2 max-w-md text-sm text-[#2b2f38]">{claim.report}</p>
                   <ClaimProof
@@ -419,12 +437,15 @@ export default async function AdminPage() {
                   <div>
                     <p className="text-sm font-semibold text-[#2b2f38]">{m.title}</p>
                     <p className="text-xs text-[#9aa2b1]">
-                      {m.owner.name} · {formatMoney(m.rewardCents, m.currency)} ·{" "}
-                      {m.status === "ARCHIVEE" ? "Archivée" : "Ouverte"}
+                      {m.owner.name} · {formatMoney(m.rewardCents)} ·{" "}
+                      {MISSION_STATUS_LABEL[m.status] ?? m.status}
                     </p>
                   </div>
                 </div>
-                {m.status !== "ARCHIVEE" && <ArchiveButton missionId={m.id} />}
+                <div className="flex items-center gap-2">
+                  {m.status === "BROUILLON" && <PublishButton missionId={m.id} />}
+                  {m.status !== "ARCHIVEE" && <ArchiveButton missionId={m.id} />}
+                </div>
               </div>
             );
           })}

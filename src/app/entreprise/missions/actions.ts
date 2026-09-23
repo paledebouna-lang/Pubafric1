@@ -6,7 +6,8 @@ import { revalidatePath } from "next/cache";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import { saveUploadedFile, buildMediaList } from "@/lib/upload";
 import { getModerationBlock } from "@/lib/moderation";
-import { buildMissionPaymentOps, ENTREPRISE_FEE_RATE } from "@/lib/payments";
+import { buildMissionPaymentOps, entrepriseCost } from "@/lib/payments";
+import { parseFcfa } from "@/lib/currency";
 
 export type ActionState = { error?: string };
 
@@ -29,7 +30,7 @@ export async function createMission(
 
   const title = (formData.get("title") as string)?.trim();
   const instructions = (formData.get("instructions") as string)?.trim();
-  const rewardEuros = parseFloat(formData.get("reward") as string);
+  const rewardFcfa = parseFcfa(formData.get("reward"));
   const category = formData.get("category") as string;
   const slotsTotal = parseInt(formData.get("slotsTotal") as string, 10) || 1;
   const deadlineHours = parseInt(formData.get("deadlineHours") as string, 10) || 24;
@@ -40,7 +41,7 @@ export async function createMission(
   const lngRaw = formData.get("lng") as string | null;
 
   if (!title || !instructions) return { error: "Merci de remplir tous les champs." };
-  if (!rewardEuros || rewardEuros <= 0) return { error: "Rémunération invalide." };
+  if (!rewardFcfa) return { error: "Rémunération invalide (montant entier en FCFA)." };
   if (!MISSION_CATEGORIES.some((c) => c.value === category)) {
     return { error: "Catégorie invalide." };
   }
@@ -54,15 +55,12 @@ export async function createMission(
   const imageUrl = await saveUploadedFile(image);
   const videoUrl = await saveUploadedFile(video);
   const media = buildMediaList({ imageUrl, videoUrl, link });
-  const owner = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
-
   await prisma.mission.create({
     data: {
       title,
       instructions,
       category,
-      currency: owner.currency,
-      rewardCents: Math.round(rewardEuros * 100),
+      rewardCents: rewardFcfa,
       slotsTotal,
       deadlineHours,
       mediaJson: media.length > 0 ? JSON.stringify(media) : null,
@@ -98,7 +96,7 @@ export async function decideClaim(
 
   if (decision === "VALIDEE") {
     const owner = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
-    const entrepriseDebit = Math.round(claim.mission.rewardCents * (1 + ENTREPRISE_FEE_RATE));
+    const entrepriseDebit = entrepriseCost(claim.mission.rewardCents);
     if (owner.walletCents < entrepriseDebit) {
       return {
         error:

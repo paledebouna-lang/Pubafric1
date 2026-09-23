@@ -35,7 +35,7 @@ export default async function Community() {
           [ LA COMMUNAUTÉ PUBAFRIC ]
         </p>
         <h2 className="mt-6 text-2xl font-bold text-brand-blue md:text-3xl">
-          DÉCOUVREZ TOUS NOS TASKERS
+          DÉCOUVREZ TOUS NOS INTERNAUTES
         </h2>
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -61,7 +61,7 @@ export default async function Community() {
           href="/taskers"
           className="mt-14 inline-block bg-brand-blue px-8 py-3 text-sm font-bold tracking-wide text-white shadow-sm transition-colors hover:bg-brand-blue-dark"
         >
-          VOIR LES AUTRES TASKERS
+          VOIR LES AUTRES INTERNAUTES
         </a>
       </div>
     </section>

@@ -44,9 +44,9 @@ export default function AdminMissionForm() {
         <input
           name="reward"
           type="number"
-          step="0.01"
-          min="0.01"
-          placeholder="Rémunération (€)"
+          step="1"
+          min="1"
+          placeholder="Rémunération (FCFA)"
           required
           className="w-1/3 border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
         />

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { getModerationBlock } from "@/lib/moderation";
+import { parseFcfa } from "@/lib/currency";
 
 export type ActionState = { error?: string; success?: string };
 
@@ -25,14 +26,12 @@ export async function requestDeposit(
   const block = await getModerationBlock(user.id);
   if (block) return { error: block };
 
-  const amountEuros = parseFloat(formData.get("amount") as string);
+  const amountCents = parseFcfa(formData.get("amount"));
   const paymentMethod = (formData.get("paymentMethod") as string)?.trim();
   const reference = (formData.get("reference") as string)?.trim();
 
-  if (!amountEuros || amountEuros <= 0) return { error: "Montant invalide." };
+  if (!amountCents) return { error: "Montant invalide (montant entier en FCFA)." };
   if (!paymentMethod) return { error: "Indiquez un moyen de paiement." };
-
-  const amountCents = Math.round(amountEuros * 100);
 
   await prisma.creditTransaction.create({
     data: {
@@ -60,13 +59,11 @@ export async function requestWithdrawal(
   const block = await getModerationBlock(user.id);
   if (block) return { error: block };
 
-  const amountEuros = parseFloat(formData.get("amount") as string);
+  const amountCents = parseFcfa(formData.get("amount"));
   const destination = (formData.get("destination") as string)?.trim();
 
-  if (!amountEuros || amountEuros <= 0) return { error: "Montant invalide." };
+  if (!amountCents) return { error: "Montant invalide (montant entier en FCFA)." };
   if (!destination) return { error: "Indiquez un compte bancaire ou mobile money de destination." };
-
-  const amountCents = Math.round(amountEuros * 100);
   const owner = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
   if (amountCents > owner.walletCents) {
     return { error: "Le montant demandé dépasse votre solde disponible." };

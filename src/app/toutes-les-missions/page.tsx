@@ -6,6 +6,7 @@ const OCCUPYING_STATUSES = ["EN_COURS", "SOUMISE", "VALIDEE"];
 
 export default async function ToutesLesMissionsPage() {
   const missions = await prisma.mission.findMany({
+    where: { status: { not: "BROUILLON" } },
     orderBy: { createdAt: "desc" },
     take: 50,
     include: { owner: { select: { name: true } }, claims: true },
@@ -64,7 +65,7 @@ export default async function ToutesLesMissionsPage() {
               </div>
               <div className="flex shrink-0 flex-col items-end gap-2">
                 <span className="rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-bold text-brand-teal">
-                  {formatMoney(mission.rewardCents, mission.currency)}
+                  {formatMoney(mission.rewardCents)}
                 </span>
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-bold ${

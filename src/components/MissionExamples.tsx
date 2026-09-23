@@ -24,7 +24,7 @@ export default function MissionExamples() {
       <div className="mx-auto max-w-7xl text-center">
         <p className="text-sm font-bold tracking-widest">[ EXEMPLES DE MISSIONS ]</p>
         <h2 className="mt-6 text-2xl font-bold md:text-3xl">
-          ET VOUS, QUELLES MICRO MISSIONS ALLEZ-VOUS NOUS CONFIER ?
+          ET VOUS, QUELLES MISSIONS ALLEZ-VOUS NOUS CONFIER ?
         </h2>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-3">

@@ -10,8 +10,11 @@ datasource db {
 // The schema still avoids native enums (kept as plain String, validated at the
 // app layer) to preserve the exact same Prisma Client API used everywhere in
 // the codebase — only the datasource provider changed from sqlite to postgresql.
+// Montants (walletCents, rewardCents, amountCents) : entiers en FCFA (1 unité = 1 FCFA).
+// Le suffixe "Cents" est historique (anciens montants en centimes) et n'a plus ce sens.
 // Role: INTERNAUTE | ENTREPRISE | ADMIN
-// Mission.status: OUVERTE | ARCHIVEE
+// Mission.status: BROUILLON | OUVERTE | ARCHIVEE  (BROUILLON = invisible du public, non réservable)
+// Mission.kind: EN_LIGNE | TERRAIN
 // MissionClaim.status: EN_COURS | SOUMISE | VALIDEE | REJETEE | EXPIREE
 // CreditTransaction.type: DEPOT | RETRAIT | DEBIT_MISSION | CREDIT_MISSION | FRAIS_PLATEFORME | COMMISSION_PARRAINAGE
 // CreditTransaction.status: EN_ATTENTE | APPROUVEE | REJETEE
@@ -28,7 +31,7 @@ model User {
   email        String?  @unique
   phone        String?  @unique
   passwordHash String
-  currency     String   @default("EUR")
+  currency     String   @default("XOF")
   walletCents  Int      @default(0)
   isBanned     Boolean  @default(false)
   createdAt    DateTime @default(now())
@@ -77,7 +80,7 @@ model Mission {
   title         String
   instructions  String
   category      String   @default("AUTRE")
-  currency      String   @default("EUR")
+  currency      String   @default("XOF")
   rewardCents   Int
   slotsTotal    Int      @default(1)
   deadlineHours Int      @default(24)
@@ -86,6 +89,14 @@ model Mission {
   lng           Float?
   status        String   @default("OUVERTE")
   createdAt     DateTime @default(now())
+
+  // Contenu détaillé (missions importées du kit PubAfric) — tous optionnels.
+  slug             String? @unique
+  description      String?
+  proofRequired    String?
+  kind             String  @default("EN_LIGNE")
+  locationLabel    String?
+  estimatedMinutes Int?
 
   owner   User   @relation("MissionOwner", fields: [ownerId], references: [id])
   ownerId String

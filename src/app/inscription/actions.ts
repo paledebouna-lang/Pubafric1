@@ -3,7 +3,7 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { isCurrencyCode } from "@/lib/currency";
+import { CURRENCY_CODE } from "@/lib/currency";
 import { generateVerificationCode, VERIFICATION_CODE_TTL_MINUTES } from "@/lib/moderation";
 import { generateUniqueReferralCode } from "@/lib/referral";
 import { saveUploadedFile } from "@/lib/upload";
@@ -20,7 +20,6 @@ export async function registerUser(
   const phoneRaw = (formData.get("phone") as string)?.trim();
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
-  const currency = formData.get("currency") as string;
   const terms = formData.get("terms");
   const referralCodeInput = (formData.get("parrainCode") as string)?.trim().toUpperCase();
   const logo = formData.get("logo") as File | null;
@@ -33,9 +32,6 @@ export async function registerUser(
   }
   if (!name || !password) {
     return { error: "Merci de remplir tous les champs." };
-  }
-  if (!isCurrencyCode(currency)) {
-    return { error: "Choisissez une monnaie valide." };
   }
   if (!email && !phone) {
     return { error: "Indiquez un email ou un numéro de téléphone." };
@@ -85,7 +81,7 @@ export async function registerUser(
       email,
       phone,
       passwordHash,
-      currency,
+      currency: CURRENCY_CODE,
       verificationCode,
       verificationCodeExpiresAt,
       referralCode,

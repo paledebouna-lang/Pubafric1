@@ -14,7 +14,7 @@ export default async function ProfilPage() {
 
   let referralLink = "";
   let filleulCount = 0;
-  let totalEarnedLabel = formatMoney(0, user.currency);
+  let totalEarnedLabel = formatMoney(0);
 
   if (user.role === "INTERNAUTE" && user.referralCode) {
     const headersList = await headers();
@@ -30,7 +30,7 @@ export default async function ProfilPage() {
       }),
     ]);
     filleulCount = count;
-    totalEarnedLabel = formatMoney(earned._sum.amountCents ?? 0, user.currency);
+    totalEarnedLabel = formatMoney(earned._sum.amountCents ?? 0);
   }
 
   return (

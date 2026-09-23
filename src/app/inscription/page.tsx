@@ -3,7 +3,6 @@
 import { Suspense, useActionState, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { registerUser, type RegisterState } from "./actions";
-import { CURRENCIES } from "@/lib/currency";
 
 const initialState: RegisterState = {};
 
@@ -85,22 +84,6 @@ function InscriptionForm() {
             required
           />
         )}
-      </div>
-
-      <div>
-        <p className="mb-2 text-sm font-semibold text-[#2b2f38]">Monnaie de votre portefeuille</p>
-        <select
-          name="currency"
-          defaultValue="EUR"
-          required
-          className="w-full border border-border-soft bg-muted-bg px-4 py-3 text-sm outline-none focus:border-brand-blue"
-        >
-          {CURRENCIES.map((c) => (
-            <option key={c.code} value={c.code}>
-              {c.label}
-            </option>
-          ))}
-        </select>
       </div>
 
       {role === "INTERNAUTE" && (

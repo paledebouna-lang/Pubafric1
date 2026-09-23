@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { requestWithdrawal, type ActionState } from "./actions";
 
-export default function WithdrawalForm({ currencySymbol }: { currencySymbol: string }) {
+export default function WithdrawalForm() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     requestWithdrawal,
     {}
@@ -14,9 +14,9 @@ export default function WithdrawalForm({ currencySymbol }: { currencySymbol: str
       <input
         name="amount"
         type="number"
-        step="0.01"
-        min="0.01"
-        placeholder={`Montant à retirer (${currencySymbol})`}
+        step="1"
+        min="1"
+        placeholder="Montant à retirer (FCFA)"
         required
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       />

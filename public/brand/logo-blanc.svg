@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140" width="560" height="140" role="img" aria-label="PubAfric - Vos missions, votre Afrique (version fond sombre)">
+  <title>PubAfric</title>
+  <g transform="translate(10,10)">
+    <rect width="120" height="120" rx="28" fill="#ffffff"/>
+    <rect x="22" y="18" width="76" height="56" rx="16" fill="#e8792b"/>
+    <polygon points="40,72 40,92 60,72" fill="#e8792b"/>
+    <polyline points="42,46 54,58 78,32" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="22" y="101" width="26" height="6" rx="3" fill="#1e7a45"/>
+    <rect x="47" y="101" width="26" height="6" fill="#f0a90f"/>
+    <rect x="72" y="101" width="26" height="6" rx="3" fill="#b5232a"/>
+  </g>
+  <text x="152" y="82" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="64" font-weight="800" letter-spacing="-1"><tspan fill="#ffffff">Pub</tspan><tspan fill="#f39a4f">Afric</tspan></text>
+  <text x="155" y="112" font-family="Nunito, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.6" fill="#d9c9bb">VOS MISSIONS, VOTRE AFRIQUE</text>
+</svg>

@@ -5,7 +5,7 @@ import { createMission, type ActionState } from "./actions";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import LocationPicker from "@/components/LocationPicker";
 
-export default function CreateMissionForm({ currencySymbol = "€" }: { currencySymbol?: string }) {
+export default function CreateMissionForm() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(createMission, {});
   const [needsLocation, setNeedsLocation] = useState(false);
   const [position, setPosition] = useState<[number, number] | null>(null);
@@ -45,9 +45,9 @@ export default function CreateMissionForm({ currencySymbol = "€" }: { currency
         <input
           name="reward"
           type="number"
-          step="0.01"
-          min="0.01"
-          placeholder={`Rémunération par internaute (${currencySymbol})`}
+          step="1"
+          min="1"
+          placeholder="Rémunération par internaute (FCFA)"
           required
           className="w-1/2 border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
         />
