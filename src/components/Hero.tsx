@@ -42,7 +42,7 @@ export default async function Hero() {
           ) : (
             <div className="mt-10 grid max-w-xl grid-cols-2 gap-4">
               <a
-                href="/inscription"
+                href="/internautes"
                 className="flex flex-col items-center gap-3 bg-white/90 px-6 py-8 text-center transition-colors hover:bg-white"
               >
                 <User size={36} className="text-[#5b6472]" strokeWidth={1.5} />
@@ -50,7 +50,7 @@ export default async function Hero() {
                 <span className="text-xs text-[#6b7280]">Arrondissez vos fins de mois</span>
               </a>
               <a
-                href="/inscription"
+                href="/entreprises"
                 className="flex flex-col items-center gap-3 bg-brand-red/90 px-6 py-8 text-center transition-colors hover:bg-brand-red"
               >
                 <Landmark size={36} className="text-white" strokeWidth={1.5} />

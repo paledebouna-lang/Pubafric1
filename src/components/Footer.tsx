@@ -5,8 +5,10 @@ const COLUMNS = [
   {
     title: "GAGNER DE L'ARGENT",
     links: [
-      { label: "Nos missions", href: "/toutes-les-missions" },
-      { label: "Devenir internaute", href: "/inscription" },
+      { label: "Internaute, gagnez de l'argent !", href: "/internautes" },
+      { label: "Entreprise, proposez une mission", href: "/entreprises" },
+      { label: "Types de missions proposées", href: "/types-de-missions" },
+      { label: "Toutes les missions", href: "/toutes-les-missions" },
     ],
   },
   {
@@ -19,7 +21,7 @@ const COLUMNS = [
   {
     title: "LÉGAL",
     links: [
-      { label: "Conditions générales d'utilisation", href: "/cgu" },
+      { label: "CGU et CGV", href: "/cgu" },
       { label: "Mentions légales", href: "/mentions-legales" },
     ],
   },

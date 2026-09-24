@@ -5,8 +5,8 @@ import MobileMenu, { type MobileLink } from "./MobileMenu";
 import { spaceHref, spaceLabel } from "@/lib/space";
 
 const NAV_LINKS = [
-  { label: "Internautes", href: "#internautes" },
-  { label: "Entreprises", href: "#entreprises" },
+  { label: "Internautes", href: "/internautes" },
+  { label: "Entreprises", href: "/entreprises" },
 ];
 
 export default async function Header() {
@@ -16,7 +16,14 @@ export default async function Header() {
   const mobileLinks: MobileLink[] = [
     ...(user && user.role !== "ADMIN" ? [{ label: spaceLabel(user.role), href: spaceHref(user.role) }] : []),
     ...(user?.role === "ADMIN" ? [{ label: "ADMINISTRATION", href: "/admin" }] : []),
+    ...(!user
+      ? [
+          { label: "INTERNAUTES : GAGNEZ DE L'ARGENT", href: "/internautes" },
+          { label: "ENTREPRISES : PROPOSEZ UNE MISSION", href: "/entreprises" },
+        ]
+      : []),
     { label: "MISSIONS", href: "/toutes-les-missions" },
+    { label: "TYPES DE MISSIONS", href: "/types-de-missions" },
     { label: "COMMENT ÇA MARCHE", href: "/comment-ca-marche" },
     ...(user?.role !== "INTERNAUTE" ? [{ label: "NOS INTERNAUTES", href: "/taskers" }] : []),
     { label: "PARTENAIRES", href: "/partenaires" },

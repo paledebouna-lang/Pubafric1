@@ -64,7 +64,7 @@ export default function CreateMissionForm({ template }: { template?: MissionIdea
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       />
 
-      <ExecutionFields />
+      <ExecutionFields defaultExecution={template?.execution ?? "PREUVE"} />
 
       <input
         name="proofRequired"

@@ -17,8 +17,8 @@ const inputClass =
 
 // Champs "mode d'exécution" d'un formulaire de mission : preuve classique, vidéo + quiz
 // (chaque bonne réponse remplit la jauge, validation automatique à 100 %) ou questionnaire.
-export default function ExecutionFields() {
-  const [execution, setExecution] = useState<Execution>("PREUVE");
+export default function ExecutionFields({ defaultExecution = "PREUVE" }: { defaultExecution?: Execution }) {
+  const [execution, setExecution] = useState<Execution>(defaultExecution);
   const [questions, setQuestions] = useState<BuilderQuestion[]>([blankQuestion()]);
 
   const update = (i: number, patch: Partial<BuilderQuestion>) =>

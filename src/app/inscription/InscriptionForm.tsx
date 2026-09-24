@@ -157,7 +157,12 @@ export default function InscriptionForm({ googleEnabled }: { googleEnabled: bool
 
       <label className="flex items-center gap-2 text-sm text-[#2b2f38]">
         <input type="checkbox" name="terms" required />
-        J&apos;accepte les conditions générales
+        <span>
+          J&apos;accepte les{" "}
+          <a href="/cgu" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-blue underline">
+            conditions générales (CGU et CGV)
+          </a>
+        </span>
       </label>
 
       {state?.error && <p className="text-sm font-semibold text-brand-coral">{state.error}</p>}

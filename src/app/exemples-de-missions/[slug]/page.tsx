@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import MissionCover from "@/components/MissionCover";
 import { MISSION_IDEAS, getIdea } from "@/lib/mission-ideas";
 import { getCategory } from "@/lib/categories";
+import { getFamily } from "@/lib/mission-families";
 import { formatMoney } from "@/lib/currency";
 import { entrepriseCost, internauteNet } from "@/lib/fees";
 
@@ -26,7 +27,10 @@ export default async function IdeaPage({ params }: Params) {
   const session = await auth();
   const role = session?.user?.role;
   const category = getCategory(idea.category);
-  const others = MISSION_IDEAS.filter((i) => i.slug !== idea.slug).slice(0, 3);
+  const others = [
+    ...MISSION_IDEAS.filter((i) => i.slug !== idea.slug && i.family === idea.family),
+    ...MISSION_IDEAS.filter((i) => i.slug !== idea.slug && i.family !== idea.family),
+  ].slice(0, 3);
 
   return (
     <main className="bg-muted-bg pb-16">
@@ -40,7 +44,8 @@ export default async function IdeaPage({ params }: Params) {
             ← Tous les exemples
           </Link>
           <p className="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-red">
-            <category.icon size={14} /> {idea.kind === "TERRAIN" ? "Mission terrain" : "Mission en ligne"}
+            <category.icon size={14} /> {getFamily(idea.family)?.label} ·{" "}
+            {idea.kind === "TERRAIN" ? "Mission terrain" : "Mission en ligne"}
           </p>
           <h1 className="mt-2 text-2xl font-extrabold text-[#2b2f38] md:text-3xl">{idea.title}</h1>
           <p className="mt-3 text-sm leading-relaxed text-[#7c8797]">{idea.summary}</p>

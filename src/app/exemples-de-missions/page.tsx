@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import MissionCover from "@/components/MissionCover";
 import { MISSION_IDEAS } from "@/lib/mission-ideas";
+import { MISSION_FAMILIES } from "@/lib/mission-families";
 import { getCategory } from "@/lib/categories";
 import { formatMoney } from "@/lib/currency";
 
@@ -11,7 +12,15 @@ export const metadata: Metadata = {
     "Des idées de micro-missions pour les entreprises et les internautes : avis, sondages, vidéos, terrain, réseaux sociaux…",
 };
 
-export default function ExemplesPage() {
+export default async function ExemplesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ famille?: string }>;
+}) {
+  const { famille } = await searchParams;
+  const active = MISSION_FAMILIES.some((f) => f.id === famille) ? famille : undefined;
+  const ideas = active ? MISSION_IDEAS.filter((i) => i.family === active) : MISSION_IDEAS;
+
   return (
     <main className="bg-muted-bg px-6 py-16">
       <div className="mx-auto max-w-6xl">
@@ -26,8 +35,34 @@ export default function ExemplesPage() {
           type de tâches que vous pouvez trouver et gagner de l&apos;argent avec.
         </p>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {MISSION_IDEAS.map((idea) => {
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          <Link
+            href="/exemples-de-missions"
+            className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+              !active
+                ? "border-brand-blue bg-brand-blue text-white"
+                : "border-border-soft bg-white text-[#7c8797] hover:border-brand-blue"
+            }`}
+          >
+            Toutes
+          </Link>
+          {MISSION_FAMILIES.map((f) => (
+            <Link
+              key={f.id}
+              href={`/exemples-de-missions?famille=${f.id}`}
+              className={`flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold ${
+                active === f.id
+                  ? "border-brand-blue bg-brand-blue text-white"
+                  : "border-border-soft bg-white text-[#7c8797] hover:border-brand-blue"
+              }`}
+            >
+              <f.icon size={12} /> {f.short}
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {ideas.map((idea) => {
             const category = getCategory(idea.category);
             return (
               <Link
