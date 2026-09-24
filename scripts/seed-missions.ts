@@ -31,6 +31,9 @@ async function main() {
       for (const w of r.warnings) console.log(`   ⚠ ${w}`);
     }
     console.log(`\n${report.created} à créer, ${report.updated} à mettre à jour (statut initial : brouillon).`);
+    if (report.removed > 0) {
+      console.log(`${report.removed} doublon(s) retiré(s) du kit ${dryRun ? "à supprimer" : "supprimé(s)"} (brouillons sans participation).`);
+    }
     console.log(`BUDGET TOTAL À CRÉDITER sur le portefeuille « PubAfric » : ${fcfa(report.budgetTotalFcfa)}`);
     console.log(
       report.accountExists

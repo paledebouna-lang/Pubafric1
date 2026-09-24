@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { createMission, type ActionState } from "./actions";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import LocationPicker from "@/components/LocationPicker";
+import ExecutionFields from "@/components/ExecutionFields";
 import type { MissionIdea } from "@/lib/mission-ideas";
 import { ideaInstructionsText } from "@/lib/mission-ideas";
 
@@ -62,6 +63,8 @@ export default function CreateMissionForm({ template }: { template?: MissionIdea
         rows={template ? 5 : 3}
         className="border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
       />
+
+      <ExecutionFields />
 
       <input
         name="proofRequired"

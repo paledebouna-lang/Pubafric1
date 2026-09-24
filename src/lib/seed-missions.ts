@@ -2,6 +2,16 @@ import { randomBytes } from "crypto";
 import bcrypt from "bcryptjs";
 import type { PrismaClient } from "@prisma/client";
 import { entrepriseCost, internauteNet } from "./fees";
+import type { Resource } from "./mission-content";
+
+// Question telle qu'écrite dans le kit (l'identifiant est ajouté à l'import).
+export type KitQuestion = {
+  type: string;
+  text: string;
+  options?: string[];
+  correct?: number;
+  minLength?: number;
+};
 
 // Import idempotent des missions du kit PubAfric (pubafric-kit/missions.json).
 // Utilisé par le script `scripts/seed-missions.ts` ET par le bouton d'import du tableau
@@ -25,9 +35,18 @@ export type KitMission = {
   places: number;
   cout_entreprise_fcfa: number;
   net_internaute_fcfa: number;
+  // Exécution sur la plateforme (facultatif ; sinon compte-rendu avec preuves)
+  execution?: "PREUVE" | "QUIZ" | "SONDAGE";
+  validation_auto?: boolean;
+  video_url?: string;
+  attente_secondes?: number;
+  questions?: KitQuestion[];
+  ressources?: Resource[];
+  // Informations réelles encore à fournir avant de publier (montré à l'administrateur)
+  a_completer?: string[];
 };
 
-export type KitFile = { missions: KitMission[] };
+export type KitFile = { missions: KitMission[]; missions_retirees?: string[] };
 
 // Catégories du kit -> catégories déjà présentes sur le site.
 const CATEGORY_MAP: Record<string, string> = {
@@ -58,6 +77,8 @@ export type ImportReport = {
   budgetTotalFcfa: number;
   accountExists: boolean;
   accountCreated: boolean;
+  // Missions retirées du kit (doublons) supprimées : brouillons sans aucune participation.
+  removed: number;
   // Mot de passe généré, affiché UNE seule fois lors de la création du compte PubAfric.
   accountPassword?: string;
 };
@@ -80,6 +101,15 @@ function toMissionData(m: KitMission) {
     rewardCents: m.recompense_fcfa,
     slotsTotal: m.places,
     currency: "XOF",
+    execution: m.execution ?? "PREUVE",
+    autoValidate: m.execution === "QUIZ" ? true : (m.validation_auto ?? false),
+    videoUrl: m.video_url ?? null,
+    minWatchSeconds: m.attente_secondes ?? null,
+    questionsJson: m.questions?.length
+      ? JSON.stringify(m.questions.map((q, i) => ({ ...q, id: `q${i + 1}` })))
+      : null,
+    resourcesJson: m.ressources?.length ? JSON.stringify(m.ressources) : null,
+    todoJson: m.a_completer?.length ? JSON.stringify(m.a_completer) : null,
   };
 }
 
@@ -141,8 +171,14 @@ export async function importKitMissions(
     budgetTotalFcfa,
     accountExists: Boolean(existingAccount),
     accountCreated: false,
+    removed: 0,
   };
-  if (dryRun) return report;
+  if (dryRun) {
+    report.removed = await prisma.mission.count({
+      where: { slug: { in: kit.missions_retirees ?? [] }, status: "BROUILLON", claims: { none: {} } },
+    });
+    return report;
+  }
 
   let ownerId = existingAccount?.id;
   if (!ownerId) {
@@ -170,6 +206,14 @@ export async function importKitMissions(
       create: { ...data, slug: m.slug, status: "BROUILLON", ownerId },
       update: data,
     });
+  }
+
+  // Nettoyage des doublons retirés du kit : uniquement des brouillons que personne n'a pris.
+  if (kit.missions_retirees?.length) {
+    const removed = await prisma.mission.deleteMany({
+      where: { slug: { in: kit.missions_retirees }, status: "BROUILLON", claims: { none: {} } },
+    });
+    report.removed = removed.count;
   }
   return report;
 }

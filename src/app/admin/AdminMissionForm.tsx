@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { createAdminMission, type ActionState } from "./actions";
 import { MISSION_CATEGORIES } from "@/lib/categories";
+import ExecutionFields from "@/components/ExecutionFields";
 
 export default function AdminMissionForm() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
@@ -67,6 +68,8 @@ export default function AdminMissionForm() {
           className="w-1/3 border border-border-soft bg-muted-bg px-3 py-2 text-sm outline-none focus:border-brand-blue"
         />
       </div>
+
+      <ExecutionFields />
 
       {state?.error && <p className="text-sm font-semibold text-brand-coral">{state.error}</p>}
       {state?.success && <p className="text-sm font-semibold text-brand-teal">{state.success}</p>}

@@ -8,6 +8,7 @@ import { saveUploadedFile, buildMediaList } from "@/lib/upload";
 import { getModerationBlock } from "@/lib/moderation";
 import { buildMissionPaymentOps, entrepriseCost } from "@/lib/payments";
 import { parseFcfa } from "@/lib/currency";
+import { parseExecutionForm } from "@/lib/execution-form";
 
 export type ActionState = { error?: string };
 
@@ -56,6 +57,10 @@ export async function createMission(
     return { error: "Le délai doit être entre 1 heure et 30 jours." };
   }
 
+  const contentVideoUrl = await saveUploadedFile(formData.get("contentVideo") as File | null);
+  const exec = parseExecutionForm(formData, contentVideoUrl);
+  if ("error" in exec) return { error: exec.error };
+
   const imageUrl = await saveUploadedFile(image);
   const videoUrl = await saveUploadedFile(video);
   const media = buildMediaList({ imageUrl, videoUrl, link });
@@ -63,6 +68,7 @@ export async function createMission(
     data: {
       title,
       instructions,
+      ...exec.data,
       description,
       proofRequired,
       estimatedMinutes,

@@ -12,8 +12,9 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Faites connaître PubAfric à vos contacts en publiant notre visuel en statut WhatsApp pendant 24 h.",
       "instructions": [
-        "Téléchargez le visuel fourni par PubAfric.",
-        "Publiez-le en statut WhatsApp avec la légende indiquée.",
+        "Téléchargez le visuel fourni ci-dessous (bouton « Télécharger le visuel »).",
+        "Copiez la légende fournie ci-dessous.",
+        "Publiez le visuel en statut WhatsApp avec cette légende.",
         "Laissez-le en ligne 24 heures.",
         "Envoyez une capture d'écran du statut ET de la liste des vues."
       ],
@@ -27,7 +28,17 @@
       "net_internaute_fcfa": 180,
       "cout_entreprise_fcfa": 230,
       "budget_total_entreprise_fcfa": 11500,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Visuel du statut",
+          "image": "/campagne/statut-whatsapp.png"
+        },
+        {
+          "label": "Légende à copier",
+          "text": "🌍 Gagne de l'argent avec ton téléphone ! Sur PubAfric, tu fais de petites missions et tu es payé en FCFA par Mobile Money. Inscris-toi gratuitement 👉 https://pubafric1.vercel.app"
+        }
+      ]
     },
     {
       "slug": "rejoindre-chaine-whatsapp-pubafric",
@@ -51,7 +62,13 @@
       "net_internaute_fcfa": 90,
       "cout_entreprise_fcfa": 115,
       "budget_total_entreprise_fcfa": 11500,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Lien de la chaîne WhatsApp PubAfric",
+          "url": "env:SOCIAL_WHATSAPP_URL"
+        }
+      ]
     },
     {
       "slug": "aimer-page-facebook-pubafric",
@@ -76,7 +93,13 @@
       "net_internaute_fcfa": 135,
       "cout_entreprise_fcfa": 175,
       "budget_total_entreprise_fcfa": 17500,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Lien de la page Facebook PubAfric",
+          "url": "env:SOCIAL_FACEBOOK_URL"
+        }
+      ]
     },
     {
       "slug": "tester-site-pubafric-10-questions",
@@ -86,12 +109,12 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Parcourez PubAfric comme un vrai utilisateur et dites-nous ce qui est clair ou compliqué.",
       "instructions": [
-        "Ouvrez PubAfric sur votre téléphone.",
+        "Ouvrez PubAfric sur votre téléphone (lien ci-dessous).",
         "Faites 3 actions : voir une mission, ouvrir votre profil, lire « PubAfric en 7 questions ».",
-        "Répondez aux 10 questions du formulaire de test.",
+        "Cliquez sur « Réponse au questionnaire » depuis « Mes missions » et répondez aux 10 questions.",
         "Soyez précis : chaque réponse doit faire au moins une phrase."
       ],
-      "preuve_demandee": "Réponses complètes aux 10 questions dans le compte-rendu.",
+      "preuve_demandee": "Vos réponses aux 10 questions, enregistrées directement sur PubAfric.",
       "duree_estimee_min": 15,
       "delai_heures": 72,
       "recompense_fcfa": 500,
@@ -101,7 +124,71 @@
       "net_internaute_fcfa": 450,
       "cout_entreprise_fcfa": 575,
       "budget_total_entreprise_fcfa": 17250,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": false,
+      "ressources": [
+        {
+          "label": "Site à tester",
+          "url": "https://pubafric1.vercel.app"
+        },
+        {
+          "label": "Page « PubAfric en 7 questions »",
+          "url": "https://pubafric1.vercel.app/a-propos"
+        }
+      ],
+      "questions": [
+        {
+          "type": "text",
+          "text": "Après avoir vu la page d'accueil, qu'avez-vous compris de PubAfric ?",
+          "minLength": 30
+        },
+        {
+          "type": "text",
+          "text": "Était-il facile de trouver comment gagner de l'argent ? Pourquoi ?",
+          "minLength": 30
+        },
+        {
+          "type": "text",
+          "text": "Décrivez ce que vous avez vu en ouvrant une mission.",
+          "minLength": 30
+        },
+        {
+          "type": "text",
+          "text": "Les instructions d'une mission sont-elles claires ? Qu'est-ce qui manque ?",
+          "minLength": 30
+        },
+        {
+          "type": "text",
+          "text": "Qu'avez-vous pensé de votre page de profil (informations demandées, présentation) ?",
+          "minLength": 30
+        },
+        {
+          "type": "text",
+          "text": "Après avoir lu « PubAfric en 7 questions », que retenez-vous sur les frais et sur le retrait ?",
+          "minLength": 30
+        },
+        {
+          "type": "text",
+          "text": "Qu'est-ce qui vous a le plus plu ?",
+          "minLength": 20
+        },
+        {
+          "type": "text",
+          "text": "Qu'est-ce qui vous a bloqué, gêné ou surpris ?",
+          "minLength": 20
+        },
+        {
+          "type": "text",
+          "text": "Le site est-il rapide sur votre téléphone ? Indiquez votre téléphone et votre navigateur.",
+          "minLength": 20
+        },
+        {
+          "type": "text",
+          "text": "Quelle amélioration devrions-nous faire en priorité ?",
+          "minLength": 20
+        }
+      ]
     },
     {
       "slug": "sondage-paiement-mobile-money",
@@ -111,11 +198,11 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Répondez à un court sondage sur l'usage d'Orange Money, MTN MoMo, Wave et Moov Money.",
       "instructions": [
-        "Ouvrez le formulaire du sondage.",
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire ».",
         "Répondez honnêtement aux 12 questions (5 minutes).",
-        "Copiez le code de confirmation affiché à la fin dans votre compte-rendu."
+        "Validez : vos réponses sont enregistrées et vous êtes payé automatiquement."
       ],
-      "preuve_demandee": "Code de confirmation du sondage.",
+      "preuve_demandee": "Aucune preuve à envoyer : vos réponses au questionnaire sont enregistrées sur PubAfric.",
       "duree_estimee_min": 5,
       "delai_heures": 72,
       "recompense_fcfa": 300,
@@ -125,7 +212,121 @@
       "net_internaute_fcfa": 270,
       "cout_entreprise_fcfa": 345,
       "budget_total_entreprise_fcfa": 34500,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": true,
+      "questions": [
+        {
+          "type": "choice",
+          "text": "Quel service de Mobile Money utilisez-vous le plus souvent ?",
+          "options": [
+            "Orange Money",
+            "MTN MoMo",
+            "Wave",
+            "Moov Money",
+            "Je n'en utilise pas"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "À quelle fréquence l'utilisez-vous ?",
+          "options": [
+            "Tous les jours",
+            "Plusieurs fois par semaine",
+            "Une fois par semaine",
+            "Quelques fois par mois",
+            "Rarement"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Pour quoi l'utilisez-vous surtout ?",
+          "options": [
+            "Envoyer de l'argent à un proche",
+            "Payer des achats ou des factures",
+            "Recharger du crédit ou de l'internet",
+            "Recevoir un salaire ou un paiement",
+            "Mettre de l'argent de côté"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Combien passe en moyenne par votre compte Mobile Money chaque mois ?",
+          "options": [
+            "Moins de 10 000 FCFA",
+            "10 000 à 50 000 FCFA",
+            "50 000 à 150 000 FCFA",
+            "Plus de 150 000 FCFA"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Que pensez-vous des frais de transfert ?",
+          "options": [
+            "Trop chers",
+            "Corrects",
+            "Peu élevés",
+            "Je ne sais pas"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Avez-vous déjà eu un problème (transaction bloquée, erreur de destinataire) ?",
+          "options": [
+            "Jamais",
+            "Une fois",
+            "Plusieurs fois"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Décrivez brièvement le dernier problème rencontré (ou écrivez « aucun »).",
+          "minLength": 5
+        },
+        {
+          "type": "choice",
+          "text": "Utilisez-vous plusieurs services de Mobile Money ?",
+          "options": [
+            "Non, un seul",
+            "Oui, deux",
+            "Oui, trois ou plus"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Qu'est-ce qui compte le plus dans le choix d'un service ?",
+          "options": [
+            "Des frais bas",
+            "Un grand nombre d'agents",
+            "La rapidité",
+            "La sécurité",
+            "L'avis de mes proches"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Faites-vous confiance à Mobile Money pour recevoir un paiement d'un site que vous ne connaissez pas ?",
+          "options": [
+            "Oui",
+            "Ça dépend du site",
+            "Non"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Pour de petites missions payées, vous préférez être payé :",
+          "options": [
+            "Par Mobile Money",
+            "En espèces",
+            "Peu importe"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Quelle amélioration aimeriez-vous sur votre service de Mobile Money ?",
+          "minLength": 5
+        }
+      ]
     },
     {
       "slug": "filmer-marche-quartier-abidjan",
@@ -150,7 +351,13 @@
       "net_internaute_fcfa": 900,
       "cout_entreprise_fcfa": 1150,
       "budget_total_entreprise_fcfa": 23000,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Conseils de tournage",
+          "text": "• Tenez le téléphone à l'horizontale, coudes contre le corps pour une image stable.\n• Filmez en plein jour ou dans un lieu bien éclairé.\n• Gardez le plan 20 secondes minimum, sans zoomer.\n• Ne filmez pas de visages de près sans accord. Indiquez le lieu exact dans votre compte-rendu."
+        }
+      ]
     },
     {
       "slug": "photographier-5-enseignes-quartier",
@@ -174,7 +381,13 @@
       "net_internaute_fcfa": 1350,
       "cout_entreprise_fcfa": 1725,
       "budget_total_entreprise_fcfa": 25875,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Modèle de compte-rendu à copier",
+          "text": "Photo 1 : nom du commerce — quartier\nPhoto 2 : nom du commerce — quartier\nPhoto 3 : nom du commerce — quartier\nPhoto 4 : nom du commerce — quartier\nPhoto 5 : nom du commerce — quartier"
+        }
+      ]
     },
     {
       "slug": "distribuer-50-flyers",
@@ -199,7 +412,17 @@
       "net_internaute_fcfa": 2700,
       "cout_entreprise_fcfa": 3450,
       "budget_total_entreprise_fcfa": 34500,
-      "devise": "XOF"
+      "devise": "XOF",
+      "a_completer": [
+        "Entreprise partenaire et visuel du flyer",
+        "Adresse et horaires du point relais où récupérer les 50 flyers"
+      ],
+      "ressources": [
+        {
+          "label": "Que dire aux passants",
+          "text": "« Bonjour ! Je vous propose un flyer de la part de [nom de l'entreprise] : il présente leur offre du moment. Vous pouvez le lire quand vous voulez. Bonne journée ! »\nRestez poli, ne forcez jamais, et ne distribuez pas sur la chaussée."
+        }
+      ]
     },
     {
       "slug": "porter-vetement-publicitaire",
@@ -224,7 +447,11 @@
       "net_internaute_fcfa": 3150,
       "cout_entreprise_fcfa": 4025,
       "budget_total_entreprise_fcfa": 40250,
-      "devise": "XOF"
+      "devise": "XOF",
+      "a_completer": [
+        "Entreprise partenaire et t-shirts (nombre, tailles)",
+        "Adresse et horaires du point relais où récupérer et rendre le vêtement"
+      ]
     },
     {
       "slug": "trouver-nom-slogan-marque",
@@ -234,12 +461,12 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Une jeune entreprise ivoirienne cherche un nom accrocheur. Proposez vos meilleures idées.",
       "instructions": [
-        "Lisez la description de l'entreprise et de son produit.",
-        "Proposez 5 noms ou slogans originaux, faciles à retenir et à prononcer.",
-        "Pour chaque idée, expliquez en une phrase pourquoi elle marche.",
+        "Lisez le brief ci-dessous (l'entreprise et son produit).",
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire ».",
+        "Proposez 5 noms ou slogans originaux, faciles à retenir et à prononcer, avec une phrase d'explication pour chacun.",
         "Pas de copie de marques existantes."
       ],
-      "preuve_demandee": "Liste de 5 idées avec une phrase d'explication chacune.",
+      "preuve_demandee": "Vos 5 idées et leur explication, enregistrées directement sur PubAfric.",
       "duree_estimee_min": 25,
       "delai_heures": 72,
       "recompense_fcfa": 500,
@@ -249,7 +476,45 @@
       "net_internaute_fcfa": 450,
       "cout_entreprise_fcfa": 575,
       "budget_total_entreprise_fcfa": 17250,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": false,
+      "ressources": [
+        {
+          "label": "Brief",
+          "text": "Boutique en ligne de pagnes et d'accessoires africains modernes, pour les 18-35 ans, avec livraison partout en Côte d'Ivoire et paiement par Mobile Money. Ton attendu : fier, élégant, chaleureux. Le nom doit être court (1 à 3 mots) et facile à prononcer en français."
+        }
+      ],
+      "a_completer": [
+        "Remplacer ce brief d'exemple par celui de l'entreprise partenaire réelle"
+      ],
+      "questions": [
+        {
+          "type": "text",
+          "text": "Idée 1 : votre nom ou slogan, puis une phrase qui explique pourquoi il fonctionne.",
+          "minLength": 25
+        },
+        {
+          "type": "text",
+          "text": "Idée 2 : votre nom ou slogan, puis une phrase qui explique pourquoi il fonctionne.",
+          "minLength": 25
+        },
+        {
+          "type": "text",
+          "text": "Idée 3 : votre nom ou slogan, puis une phrase qui explique pourquoi il fonctionne.",
+          "minLength": 25
+        },
+        {
+          "type": "text",
+          "text": "Idée 4 : votre nom ou slogan, puis une phrase qui explique pourquoi il fonctionne.",
+          "minLength": 25
+        },
+        {
+          "type": "text",
+          "text": "Idée 5 : votre nom ou slogan, puis une phrase qui explique pourquoi il fonctionne.",
+          "minLength": 25
+        }
+      ]
     },
     {
       "slug": "releve-prix-5-produits-boutique",
@@ -260,7 +525,7 @@
       "description": "Enquête de prix : notez le prix de 5 produits de grande consommation dans un point de vente.",
       "instructions": [
         "Rendez-vous dans une boutique, un supermarché ou un marché.",
-        "Relevez le prix exact de 5 produits (liste fournie) et prenez-les en photo avec l'étiquette ou le prix visible.",
+        "Relevez le prix exact des 5 produits de la liste ci-dessous et photographiez chaque étiquette ou prix.",
         "Notez le nom du point de vente et le quartier."
       ],
       "preuve_demandee": "5 photos + tableau produit / prix / lieu.",
@@ -273,7 +538,17 @@
       "net_internaute_fcfa": 900,
       "cout_entreprise_fcfa": 1150,
       "budget_total_entreprise_fcfa": 28750,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Les 5 produits à relever",
+          "text": "1. Riz parfumé, sac de 5 kg\n2. Huile végétale, bouteille d'1 litre\n3. Sucre en poudre, 1 kg\n4. Savon de ménage, 1 pain\n5. Tomate concentrée, boîte de 70 g"
+        },
+        {
+          "label": "Modèle de compte-rendu à copier",
+          "text": "Point de vente : …\nQuartier : …\nDate : …\n1. Riz 5 kg : … FCFA\n2. Huile 1 L : … FCFA\n3. Sucre 1 kg : … FCFA\n4. Savon : … FCFA\n5. Tomate concentrée 70 g : … FCFA"
+        }
+      ]
     },
     {
       "slug": "tester-application-mobile-avis",
@@ -283,12 +558,12 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Une application ivoirienne veut savoir si elle est simple à utiliser. Testez-la et notez-la.",
       "instructions": [
-        "Installez l'application indiquée (Android).",
+        "Installez l'application indiquée dans les ressources (Android).",
         "Créez un compte de test et utilisez-la 10 minutes.",
-        "Répondez au questionnaire : ce qui est clair, ce qui bloque, votre note sur 5.",
-        "Joignez 2 captures d'écran d'un problème rencontré, s'il y en a."
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire » : ce qui est clair, ce qui bloque, votre note sur 5.",
+        "S'il y a un problème, décrivez précisément l'écran et l'action qui l'ont provoqué."
       ],
-      "preuve_demandee": "Questionnaire rempli + 2 captures d'écran.",
+      "preuve_demandee": "Votre questionnaire rempli, enregistré directement sur PubAfric.",
       "duree_estimee_min": 20,
       "delai_heures": 72,
       "recompense_fcfa": 700,
@@ -298,7 +573,54 @@
       "net_internaute_fcfa": 630,
       "cout_entreprise_fcfa": 805,
       "budget_total_entreprise_fcfa": 16100,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": false,
+      "a_completer": [
+        "Nom, lien de téléchargement et compte de test de l'application à tester (partenaire réel)"
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "text": "Votre note globale de l'application :",
+          "options": [
+            "1 sur 5",
+            "2 sur 5",
+            "3 sur 5",
+            "4 sur 5",
+            "5 sur 5"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "L'inscription était :",
+          "options": [
+            "Très simple",
+            "Simple",
+            "Compliquée",
+            "Très compliquée"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Qu'est-ce qui est clair et agréable dans l'application ?",
+          "minLength": 20
+        },
+        {
+          "type": "text",
+          "text": "Qu'est-ce qui vous a bloqué ou paru confus ? (écran, action)",
+          "minLength": 20
+        },
+        {
+          "type": "choice",
+          "text": "Recommanderiez-vous cette application à un proche ?",
+          "options": [
+            "Oui",
+            "Peut-être",
+            "Non"
+          ]
+        }
+      ]
     },
     {
       "slug": "mystere-visite-point-de-vente",
@@ -308,12 +630,12 @@
       "lieu": "Abidjan, Bouaké, Yamoussoukro",
       "description": "Visitez un commerce comme un client normal et évaluez l'accueil et la propreté.",
       "instructions": [
-        "Rendez-vous au point de vente indiqué.",
+        "Choisissez un commerce de votre quartier où l'on ne vous connaît pas (boutique, pharmacie, restaurant, salon…).",
         "Demandez un renseignement sur un produit et notez le temps d'attente.",
-        "Remplissez la grille : accueil, propreté, clarté des prix, sourire (note de 1 à 5).",
-        "Ne dites pas que vous êtes en mission. Aucune photo à l'intérieur sans autorisation."
+        "Ne dites pas que vous êtes en mission. Aucune photo à l'intérieur sans autorisation.",
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire » pour remplir la grille d'évaluation."
       ],
-      "preuve_demandee": "Grille d'évaluation complétée + ticket ou preuve de visite si possible.",
+      "preuve_demandee": "Votre grille d'évaluation, enregistrée directement sur PubAfric.",
       "duree_estimee_min": 30,
       "delai_heures": 72,
       "recompense_fcfa": 2500,
@@ -323,21 +645,90 @@
       "net_internaute_fcfa": 2250,
       "cout_entreprise_fcfa": 2875,
       "budget_total_entreprise_fcfa": 28750,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": false,
+      "questions": [
+        {
+          "type": "text",
+          "text": "Nom du commerce visité et quartier.",
+          "minLength": 8
+        },
+        {
+          "type": "choice",
+          "text": "Temps d'attente avant d'être servi :",
+          "options": [
+            "Moins d'une minute",
+            "1 à 3 minutes",
+            "3 à 5 minutes",
+            "Plus de 5 minutes"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Accueil :",
+          "options": [
+            "1 (très mauvais)",
+            "2",
+            "3",
+            "4",
+            "5 (excellent)"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Propreté du lieu :",
+          "options": [
+            "1 (très mauvais)",
+            "2",
+            "3",
+            "4",
+            "5 (excellent)"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Clarté des prix affichés :",
+          "options": [
+            "1 (très mauvais)",
+            "2",
+            "3",
+            "4",
+            "5 (excellent)"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Sourire et amabilité du vendeur :",
+          "options": [
+            "1 (très mauvais)",
+            "2",
+            "3",
+            "4",
+            "5 (excellent)"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Décrivez votre visite en quelques phrases (ce qui était bien, ce qui peut être amélioré).",
+          "minLength": 40
+        }
+      ]
     },
     {
       "slug": "relire-texte-300-mots",
-      "titre": "Relire un texte de 300 mots et signaler les fautes",
+      "titre": "Relire un texte publicitaire (environ 200 mots)",
       "categorie": "Création",
       "type": "en_ligne",
       "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Relecture en français : orthographe, grammaire et ponctuation d'un texte publicitaire court.",
+      "description": "Relecture en français : orthographe, grammaire et ponctuation d'un texte publicitaire d'environ 200 mots.",
       "instructions": [
-        "Lisez le texte fourni (300 mots environ).",
+        "Lisez le texte fourni ci-dessous.",
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire ».",
         "Listez chaque faute trouvée avec sa correction.",
-        "Proposez une version corrigée complète."
+        "Recopiez ensuite le texte corrigé en entier."
       ],
-      "preuve_demandee": "Liste des fautes + texte corrigé.",
+      "preuve_demandee": "Liste des fautes et texte corrigé, enregistrés directement sur PubAfric.",
       "duree_estimee_min": 20,
       "delai_heures": 48,
       "recompense_fcfa": 800,
@@ -347,7 +738,30 @@
       "net_internaute_fcfa": 720,
       "cout_entreprise_fcfa": 920,
       "budget_total_entreprise_fcfa": 18400,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": false,
+      "ressources": [
+        {
+          "label": "Texte à relire",
+          "text": "Bienvenue chez Délice d'Afrik, le restaurant qui vous fait voyager sans quitter Abidjan ! Depuis 2015, nous préparont chaque jour des plats traditionnel avec des produits frais, acheté directement auprès des producteurs locaux. Notre chef, passioné de cuisine ivoirienne, revisite pour vous l'attiéké, le kédjénou et le poisson braisé avec une touche moderne.\n\nCette semaine, profitez de notre offre spéciale : pour tout plat commandé, le dessert est offert. Les clients qui vienent en famille bénéficie aussi d'une réduction de 10 % sur l'addition. Nos serveurs vous accueille tout les jours de 11 h à 23 h, y compris le dimanche.\n\nVous préferez manger chez vous ? Pas de problème ! Notre service de livraison arrive à votre porte en moin de 30 minutes dans tout Cocody et Marcory. Il suffit d'appeler ou de commander sur notre site internet.\n\nN'attendez plus, venez découvrir nos saveurs ! Réservez votre table dés maintenant et laissez vous surprendre. Nous avont hâte de vous recevoir dans une ambiance chaleureuse et conviviale. Délice d'Afrik, le goût de chez nous."
+        }
+      ],
+      "a_completer": [
+        "Texte d'exemple : le remplacer par un vrai texte publicitaire de l'entreprise partenaire"
+      ],
+      "questions": [
+        {
+          "type": "text",
+          "text": "Listez chaque faute trouvée avec sa correction (ex : « préparont → préparons »).",
+          "minLength": 80
+        },
+        {
+          "type": "text",
+          "text": "Recopiez ici le texte complet, corrigé.",
+          "minLength": 300
+        }
+      ]
     },
     {
       "slug": "saisir-20-fiches-produits",
@@ -355,13 +769,14 @@
       "categorie": "Saisie",
       "type": "en_ligne",
       "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Recopiez dans un tableau les informations de 20 produits à partir de photos d'étiquettes.",
+      "description": "Recopiez dans des fiches les informations de 20 produits à partir de leurs étiquettes.",
       "instructions": [
-        "Ouvrez le tableau et le dossier de photos fournis.",
-        "Pour chaque produit : nom, marque, contenance, prix.",
-        "Vérifiez qu'il n'y a pas de faute de frappe, puis envoyez le tableau."
+        "Lisez les 20 étiquettes ci-dessous.",
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire ».",
+        "Pour chaque produit, recopiez : nom, marque, contenance, prix (ex : « Riz parfumé ; Soleil ; 5 kg ; 4 250 F »).",
+        "Vérifiez qu'il n'y a pas de faute de frappe avant d'envoyer."
       ],
-      "preuve_demandee": "Tableau complété (20 lignes).",
+      "preuve_demandee": "Vos 20 fiches produit, enregistrées directement sur PubAfric.",
       "duree_estimee_min": 45,
       "delai_heures": 72,
       "recompense_fcfa": 1000,
@@ -371,22 +786,135 @@
       "net_internaute_fcfa": 900,
       "cout_entreprise_fcfa": 1150,
       "budget_total_entreprise_fcfa": 23000,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": false,
+      "ressources": [
+        {
+          "label": "Les 20 étiquettes",
+          "text": "1. SOLEIL — Riz parfumé — 5 kg — 4 250 F\n2. BAOBAB — Huile végétale — 1 L — 1 350 F\n3. AKWABA — Sucre en poudre — 1 kg — 800 F\n4. LAGUNE — Lait concentré sucré — 400 g — 700 F\n5. KOLA — Tomate concentrée — 70 g — 250 F\n6. SOLEIL — Spaghetti — 500 g — 450 F\n7. BAOBAB — Savon de ménage — 1 pain — 300 F\n8. AKWABA — Eau minérale — 1,5 L — 500 F\n9. LAGUNE — Café soluble — 100 g — 1 900 F\n10. KOLA — Farine de blé — 1 kg — 650 F\n11. SOLEIL — Sardines à l'huile — 125 g — 600 F\n12. BAOBAB — Thé vert — 25 sachets — 950 F\n13. AKWABA — Cube d'assaisonnement — boîte de 24 — 1 100 F\n14. LAGUNE — Lessive en poudre — 1 kg — 1 500 F\n15. KOLA — Jus d'orange — 1 L — 1 000 F\n16. SOLEIL — Biscuits secs — 200 g — 400 F\n17. BAOBAB — Mayonnaise — 250 g — 850 F\n18. AKWABA — Gel douche — 250 ml — 1 250 F\n19. LAGUNE — Dentifrice — 75 ml — 900 F\n20. KOLA — Piles AA — lot de 4 — 1 200 F"
+        }
+      ],
+      "a_completer": [
+        "Exemple fictif : remplacer par les vraies étiquettes du partenaire"
+      ],
+      "questions": [
+        {
+          "type": "text",
+          "text": "Fiche 1 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 2 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 3 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 4 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 5 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 6 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 7 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 8 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 9 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 10 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 11 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 12 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 13 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 14 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 15 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 16 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 17 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 18 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 19 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        },
+        {
+          "type": "text",
+          "text": "Fiche 20 — nom ; marque ; contenance ; prix",
+          "minLength": 10
+        }
+      ]
     },
     {
-      "slug": "sondage-paiement-mobile",
-      "titre": "Sondage : vos habitudes de paiement Mobile Money",
+      "slug": "sondage-reseaux-sociaux-preferes",
+      "titre": "Sondage : vos réseaux sociaux préférés",
       "categorie": "Sondage",
       "type": "en_ligne",
       "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Répondez à 8 questions sur la façon dont vous payez et envoyez de l'argent avec votre téléphone.",
+      "description": "Dites-nous quels réseaux sociaux vous utilisez chaque jour et pourquoi (8 questions).",
       "instructions": [
-        "Ouvrez le lien du questionnaire PubAfric.",
-        "Répondez honnêtement aux 8 questions.",
-        "Envoyez une capture d'écran de la page de remerciement."
+        "Depuis « Mes missions », cliquez sur « Répondre au questionnaire ».",
+        "Répondez honnêtement aux 8 questions (3 minutes).",
+        "Validez : vos réponses sont enregistrées et vous êtes payé automatiquement."
       ],
-      "preuve_demandee": "Capture d'écran de la page de remerciement.",
-      "duree_estimee_min": 4,
+      "preuve_demandee": "Aucune preuve à envoyer : vos réponses sont enregistrées sur PubAfric.",
+      "duree_estimee_min": 3,
       "delai_heures": 48,
       "recompense_fcfa": 150,
       "places": 200,
@@ -395,104 +923,91 @@
       "net_internaute_fcfa": 135,
       "cout_entreprise_fcfa": 175,
       "budget_total_entreprise_fcfa": 35000,
-      "devise": "XOF"
-    },
-    {
-      "slug": "sondage-reseaux-sociaux-preferes",
-      "titre": "Sondage : vos réseaux sociaux préférés",
-      "categorie": "Sondage",
-      "type": "en_ligne",
-      "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Dites-nous quels réseaux vous utilisez chaque jour et pourquoi.",
-      "instructions": [
-        "Ouvrez le lien du questionnaire.",
-        "Répondez aux 6 questions.",
-        "Envoyez une capture d'écran de la confirmation."
-      ],
-      "preuve_demandee": "Capture d'écran de la confirmation d'envoi.",
-      "duree_estimee_min": 3,
-      "delai_heures": 48,
-      "recompense_fcfa": 150,
-      "places": 200,
-      "financeur": "PubAfric",
-      "id": 17,
-      "net_internaute_fcfa": 135,
-      "cout_entreprise_fcfa": 175,
-      "budget_total_entreprise_fcfa": 35000,
-      "devise": "XOF"
-    },
-    {
-      "slug": "tester-inscription-pubafric",
-      "titre": "Tester l'inscription sur PubAfric et donner votre avis",
-      "categorie": "Avis et tests",
-      "type": "en_ligne",
-      "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Créez un compte de test sur PubAfric et dites-nous ce qui est clair ou compliqué.",
-      "instructions": [
-        "Ouvrez le site PubAfric sur votre téléphone.",
-        "Suivez l'inscription jusqu'au bout.",
-        "Écrivez 3 choses qui vous ont plu et 3 qui vous ont gêné.",
-        "Joignez 2 captures d'écran de votre parcours."
-      ],
-      "preuve_demandee": "2 captures d'écran + votre avis en 6 lignes minimum.",
-      "duree_estimee_min": 15,
-      "delai_heures": 72,
-      "recompense_fcfa": 400,
-      "places": 60,
-      "financeur": "PubAfric",
-      "id": 18,
-      "net_internaute_fcfa": 360,
-      "cout_entreprise_fcfa": 460,
-      "budget_total_entreprise_fcfa": 27600,
-      "devise": "XOF"
-    },
-    {
-      "slug": "proposer-slogan-pubafric",
-      "titre": "Proposer un slogan pour PubAfric",
-      "categorie": "Avis et tests",
-      "type": "en_ligne",
-      "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Aidez-nous à trouver une phrase courte et accrocheuse qui résume PubAfric.",
-      "instructions": [
-        "Lisez la présentation de PubAfric sur la page d'accueil.",
-        "Proposez 3 slogans de moins de 8 mots.",
-        "Expliquez en une phrase votre préféré."
-      ],
-      "preuve_demandee": "Vos 3 slogans et l'explication de votre préféré.",
-      "duree_estimee_min": 10,
-      "delai_heures": 48,
-      "recompense_fcfa": 300,
-      "places": 80,
-      "financeur": "PubAfric",
-      "id": 19,
-      "net_internaute_fcfa": 270,
-      "cout_entreprise_fcfa": 345,
-      "budget_total_entreprise_fcfa": 27600,
-      "devise": "XOF"
-    },
-    {
-      "slug": "noter-page-facebook-pubafric",
-      "titre": "Noter et commenter la page Facebook PubAfric",
-      "categorie": "Réseaux sociaux",
-      "type": "en_ligne",
-      "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Laissez un avis sincère sur la page Facebook PubAfric.",
-      "instructions": [
-        "Ouvrez la page Facebook PubAfric.",
-        "Laissez une recommandation avec un commentaire d'au moins une phrase.",
-        "Envoyez une capture d'écran de votre avis publié."
-      ],
-      "preuve_demandee": "Capture d'écran de votre recommandation visible sur la page.",
-      "duree_estimee_min": 5,
-      "delai_heures": 48,
-      "recompense_fcfa": 200,
-      "places": 100,
-      "financeur": "PubAfric",
-      "id": 20,
-      "net_internaute_fcfa": 180,
-      "cout_entreprise_fcfa": 230,
-      "budget_total_entreprise_fcfa": 23000,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "SONDAGE",
+      "validation_auto": true,
+      "questions": [
+        {
+          "type": "choice",
+          "text": "Quel réseau social utilisez-vous le plus ?",
+          "options": [
+            "WhatsApp",
+            "Facebook",
+            "TikTok",
+            "Instagram",
+            "YouTube",
+            "X (Twitter)",
+            "Autre"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Combien de temps y passez-vous chaque jour ?",
+          "options": [
+            "Moins d'une heure",
+            "1 à 2 heures",
+            "2 à 4 heures",
+            "Plus de 4 heures"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Sur quel appareil vous connectez-vous surtout ?",
+          "options": [
+            "Smartphone Android",
+            "iPhone",
+            "Ordinateur",
+            "Tablette"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Quel type de contenu regardez-vous le plus ?",
+          "options": [
+            "Vidéos courtes",
+            "Musique",
+            "Actualités",
+            "Humour",
+            "Tutoriels",
+            "Commerce et bonnes affaires"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Vous arrive-t-il d'acheter après avoir vu une publicité sur un réseau social ?",
+          "options": [
+            "Souvent",
+            "Parfois",
+            "Rarement",
+            "Jamais"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Quelle publicité vous donne le plus envie de cliquer ?",
+          "options": [
+            "Une vidéo courte",
+            "Une image avec un prix",
+            "Un témoignage d'un proche",
+            "Un jeu concours",
+            "Aucune"
+          ]
+        },
+        {
+          "type": "choice",
+          "text": "Suivez-vous des marques ivoiriennes ou africaines sur les réseaux ?",
+          "options": [
+            "Oui, plusieurs",
+            "Oui, une ou deux",
+            "Non"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Quelle publicité vous a le plus marqué récemment, et pourquoi ?",
+          "minLength": 10
+        }
+      ]
     },
     {
       "slug": "partager-pubafric-groupe-whatsapp",
@@ -502,9 +1017,9 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Présentez PubAfric dans un groupe dont vous êtes membre (famille, quartier, association).",
       "instructions": [
-        "Copiez le message de présentation fourni par PubAfric.",
-        "Publiez-le dans un groupe WhatsApp où les messages sont autorisés.",
-        "Envoyez une capture d'écran du message publié (masquez les noms si vous le souhaitez)."
+        "Copiez le message de présentation fourni ci-dessous.",
+        "Publiez-le dans un groupe WhatsApp dont vous êtes membre, où les messages sont autorisés (famille, quartier, association).",
+        "Envoyez une capture d'écran du message publié (vous pouvez masquer les noms)."
       ],
       "preuve_demandee": "Capture d'écran du message publié dans le groupe.",
       "duree_estimee_min": 5,
@@ -512,85 +1027,17 @@
       "recompense_fcfa": 300,
       "places": 100,
       "financeur": "PubAfric",
-      "id": 21,
+      "id": 17,
       "net_internaute_fcfa": 270,
       "cout_entreprise_fcfa": 345,
       "budget_total_entreprise_fcfa": 34500,
-      "devise": "XOF"
-    },
-    {
-      "slug": "photo-affiche-pubafric-quartier",
-      "titre": "Photographier une affiche PubAfric dans votre quartier",
-      "categorie": "Terrain",
-      "type": "terrain",
-      "lieu": "Abidjan et grandes villes de Côte d'Ivoire",
-      "description": "Nous vérifions que nos affiches sont bien visibles : prenez-les en photo là où vous les trouvez.",
-      "instructions": [
-        "Repérez une affiche PubAfric dans la rue ou un commerce.",
-        "Prenez une photo de face, de jour, avec l'enseigne ou un repère du lieu.",
-        "Indiquez la commune et le quartier dans votre compte-rendu."
-      ],
-      "preuve_demandee": "Photo de l'affiche + commune et quartier.",
-      "duree_estimee_min": 30,
-      "delai_heures": 96,
-      "recompense_fcfa": 600,
-      "places": 40,
-      "financeur": "PubAfric",
-      "id": 22,
-      "net_internaute_fcfa": 540,
-      "cout_entreprise_fcfa": 690,
-      "budget_total_entreprise_fcfa": 27600,
-      "devise": "XOF"
-    },
-    {
-      "slug": "releve-prix-5-produits-marche",
-      "titre": "Relever le prix de 5 produits de base au marché",
-      "categorie": "Terrain",
-      "type": "terrain",
-      "lieu": "Marché ou supermarché de votre ville",
-      "description": "Aidez-nous à suivre le coût de la vie : riz, huile, sucre, savon et tomate concentrée.",
-      "instructions": [
-        "Rendez-vous dans un marché ou un supermarché.",
-        "Notez le prix et le format de chacun des 5 produits.",
-        "Prenez en photo l'étiquette ou le prix de 3 produits.",
-        "Indiquez le nom du lieu et la date."
-      ],
-      "preuve_demandee": "Liste des 5 prix + 3 photos + nom du lieu.",
-      "duree_estimee_min": 40,
-      "delai_heures": 72,
-      "recompense_fcfa": 800,
-      "places": 40,
-      "financeur": "PubAfric",
-      "id": 23,
-      "net_internaute_fcfa": 720,
-      "cout_entreprise_fcfa": 920,
-      "budget_total_entreprise_fcfa": 36800,
-      "devise": "XOF"
-    },
-    {
-      "slug": "video-quartier-15-secondes",
-      "titre": "Filmer votre quartier en 15 secondes",
-      "categorie": "Création",
-      "type": "terrain",
-      "lieu": "Votre quartier",
-      "description": "Faites découvrir l'ambiance de votre quartier avec une courte vidéo horizontale.",
-      "instructions": [
-        "Choisissez un endroit représentatif : marché, rue commerçante, place.",
-        "Filmez 15 secondes en mode horizontal, sans coupure.",
-        "Évitez les gros plans sur des visages.",
-        "Envoyez la vidéo avec le nom du quartier."
-      ],
-      "preuve_demandee": "Vidéo de 15 secondes + nom du quartier.",
-      "duree_estimee_min": 30,
-      "delai_heures": 72,
-      "recompense_fcfa": 800,
-      "places": 40,
-      "financeur": "PubAfric",
-      "id": 24,
-      "net_internaute_fcfa": 720,
-      "cout_entreprise_fcfa": 920,
-      "budget_total_entreprise_fcfa": 36800,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Message à copier",
+          "text": "Salut ! Je viens de découvrir PubAfric : on fait de petites missions sur son téléphone (avis, sondages, terrain) et on est payé en FCFA par Mobile Money. L'inscription est gratuite 👉 https://pubafric1.vercel.app"
+        }
+      ]
     },
     {
       "slug": "creer-visuel-statut-pubafric",
@@ -600,9 +1047,9 @@
       "lieu": "En ligne (toute la Côte d'Ivoire)",
       "description": "Concevez un visuel vertical simple qui donne envie de rejoindre PubAfric.",
       "instructions": [
-        "Utilisez le logo PubAfric et les couleurs du site.",
-        "Créez un visuel vertical 1080 × 1920 avec une phrase d'accroche.",
-        "Envoyez l'image en bonne qualité."
+        "Lisez le brief et regardez le logo ci-dessous.",
+        "Créez un visuel vertical 1080 × 1920 avec une phrase d'accroche, avec l'application de votre choix (Canva, PicsArt…).",
+        "Envoyez l'image en bonne qualité avec votre compte-rendu."
       ],
       "preuve_demandee": "Le fichier image du visuel.",
       "duree_estimee_min": 60,
@@ -610,35 +1057,21 @@
       "recompense_fcfa": 2000,
       "places": 20,
       "financeur": "PubAfric",
-      "id": 25,
+      "id": 18,
       "net_internaute_fcfa": 1800,
       "cout_entreprise_fcfa": 2300,
       "budget_total_entreprise_fcfa": 46000,
-      "devise": "XOF"
-    },
-    {
-      "slug": "recopier-15-adresses-commerces",
-      "titre": "Recopier 15 adresses de commerces depuis des photos",
-      "categorie": "Saisie",
-      "type": "en_ligne",
-      "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Recopiez soigneusement le nom, l'activité et l'adresse de 15 commerces à partir de photos fournies.",
-      "instructions": [
-        "Ouvrez les photos fournies par PubAfric.",
-        "Recopiez chaque commerce dans le tableau : nom, activité, adresse.",
-        "Relisez avant d'envoyer : les fautes peuvent entraîner un refus."
-      ],
-      "preuve_demandee": "Le tableau de 15 lignes rempli.",
-      "duree_estimee_min": 30,
-      "delai_heures": 48,
-      "recompense_fcfa": 700,
-      "places": 30,
-      "financeur": "PubAfric",
-      "id": 26,
-      "net_internaute_fcfa": 630,
-      "cout_entreprise_fcfa": 805,
-      "budget_total_entreprise_fcfa": 24150,
-      "devise": "XOF"
+      "devise": "XOF",
+      "ressources": [
+        {
+          "label": "Logo PubAfric",
+          "image": "/brand/logo.png"
+        },
+        {
+          "label": "Brief",
+          "text": "Objectif : donner envie de rejoindre PubAfric et de gagner de l'argent avec son téléphone.\nCouleurs de la marque : bleu #2f4b7c, or #e3a008, rouge #c1272d, vert #1e7145.\nÀ faire apparaître : le logo, une phrase d'accroche courte, et l'adresse https://pubafric1.vercel.app.\nÀ éviter : les promesses de gains irréalistes."
+        }
+      ]
     },
     {
       "slug": "classer-20-avis-clients",
@@ -646,23 +1079,335 @@
       "categorie": "Saisie",
       "type": "en_ligne",
       "lieu": "En ligne (toute la Côte d'Ivoire)",
-      "description": "Lisez 20 avis clients et indiquez pour chacun s'il est positif, neutre ou négatif.",
+      "description": "Lisez 20 avis clients et indiquez pour chacun s'il est positif, neutre ou négatif. Chaque bonne réponse remplit la jauge.",
       "instructions": [
-        "Ouvrez le fichier contenant les 20 avis.",
-        "Pour chaque avis, indiquez positif, neutre ou négatif.",
-        "Ajoutez un mot-clé décrivant le sujet principal (prix, accueil, qualité…)."
+        "Depuis « Mes missions », cliquez sur « Répondre au quiz ».",
+        "Lisez chacun des 20 avis clients et indiquez s'il est positif, neutre ou négatif.",
+        "Chaque bonne réponse remplit la jauge : à 100 %, la mission est validée et payée automatiquement (3 essais)."
       ],
-      "preuve_demandee": "Le tableau de classement rempli.",
+      "preuve_demandee": "Aucune preuve à envoyer : la jauge du quiz doit atteindre 100 %.",
       "duree_estimee_min": 25,
       "delai_heures": 48,
       "recompense_fcfa": 500,
       "places": 30,
       "financeur": "PubAfric",
-      "id": 27,
+      "id": 19,
       "net_internaute_fcfa": 450,
       "cout_entreprise_fcfa": 575,
       "budget_total_entreprise_fcfa": 17250,
-      "devise": "XOF"
+      "devise": "XOF",
+      "execution": "QUIZ",
+      "questions": [
+        {
+          "type": "choice",
+          "text": "Avis 1 : « Service impeccable, livraison en avance, je recommande ! »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 2 : « Produit cassé à l'arrivée, très déçu. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 3 : « Correct sans plus, ça fait le travail. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Avis 4 : « Le personnel est adorable et très serviable. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 5 : « Prix trop élevés pour la qualité, je ne reviendrai pas. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 6 : « Ni bon ni mauvais, une expérience moyenne. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Avis 7 : « Excellent rapport qualité-prix, merci beaucoup ! »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 8 : « J'ai attendu 1 heure pour rien, inadmissible. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 9 : « Produit conforme à la description. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Avis 10 : « Super application, simple et rapide, j'adore. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 11 : « Arnaque, on ne m'a jamais remboursé. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 12 : « Livraison dans les délais annoncés, rien de plus. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Avis 13 : « Un vrai plaisir, l'équipe est au top ! »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 14 : « Le colis est arrivé en retard et abîmé. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 15 : « Le magasin est propre et bien rangé. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 16 : « Article différent de la photo, je suis mécontent. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 17 : « Pas de problème particulier, achat normal. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Avis 18 : « Très satisfait, je repasserai sans hésiter. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 0
+        },
+        {
+          "type": "choice",
+          "text": "Avis 19 : « Service client injoignable, aucune réponse. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Avis 20 : « Ça va, c'est un produit standard. »",
+          "options": [
+            "Positif",
+            "Neutre",
+            "Négatif"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "slug": "quiz-decouvrir-pubafric",
+      "titre": "Quiz : ce que vous avez retenu de PubAfric",
+      "categorie": "Sondage",
+      "type": "en_ligne",
+      "lieu": "En ligne (toute la Côte d'Ivoire)",
+      "description": "Lisez le guide « Comment ça marche » puis répondez à 6 questions. Chaque bonne réponse remplit la jauge ; à 100 %, vous êtes payé.",
+      "instructions": [
+        "Lisez le guide « Comment ça marche » (lien ci-dessous).",
+        "Depuis « Mes missions », cliquez sur « Répondre au quiz ».",
+        "Répondez aux 6 questions : à 100 %, la mission est validée et payée automatiquement (3 essais)."
+      ],
+      "preuve_demandee": "Aucune preuve à envoyer : la jauge du quiz doit atteindre 100 %.",
+      "duree_estimee_min": 5,
+      "delai_heures": 48,
+      "recompense_fcfa": 150,
+      "places": 200,
+      "financeur": "PubAfric",
+      "devise": "XOF",
+      "execution": "QUIZ",
+      "ressources": [
+        {
+          "label": "Guide « Comment ça marche »",
+          "url": "https://pubafric1.vercel.app/comment-ca-marche"
+        }
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "text": "Quel pourcentage de frais PubAfric ajoute-t-il à la récompense payée par l'entreprise ?",
+          "options": [
+            "5 %",
+            "10 %",
+            "15 %",
+            "20 %"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Quel pourcentage est retenu sur le gain d'un internaute ?",
+          "options": [
+            "5 %",
+            "10 %",
+            "15 %",
+            "Aucun"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "À partir de quel montant cumulé peut-on retirer son argent ?",
+          "options": [
+            "500 FCFA",
+            "1 000 FCFA",
+            "2 000 FCFA",
+            "10 000 FCFA"
+          ],
+          "correct": 2
+        },
+        {
+          "type": "choice",
+          "text": "Combien de missions peut-on avoir en cours en même temps ?",
+          "options": [
+            "1",
+            "2",
+            "5",
+            "Sans limite"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Comment reçoit-on l'argent retiré ?",
+          "options": [
+            "Par carte bancaire",
+            "Par Mobile Money",
+            "Par chèque",
+            "En espèces à l'agence"
+          ],
+          "correct": 1
+        },
+        {
+          "type": "choice",
+          "text": "Que gagne un parrain quand son filleul réussit une mission ?",
+          "options": [
+            "Rien",
+            "5 % du gain net du filleul",
+            "50 % du gain du filleul",
+            "Une mission gratuite"
+          ],
+          "correct": 1
+        }
+      ],
+      "id": 20,
+      "net_internaute_fcfa": 135,
+      "cout_entreprise_fcfa": 175,
+      "budget_total_entreprise_fcfa": 35000
     }
+  ],
+  "missions_retirees": [
+    "sondage-paiement-mobile",
+    "tester-inscription-pubafric",
+    "proposer-slogan-pubafric",
+    "noter-page-facebook-pubafric",
+    "photo-affiche-pubafric-quartier",
+    "releve-prix-5-produits-marche",
+    "video-quartier-15-secondes",
+    "recopier-15-adresses-commerces"
   ]
 }

@@ -114,7 +114,7 @@ export default async function EntrepriseMissionsPage({
                         Par {claim.user.name} ·{" "}
                         {formatMoney(claim.mission.rewardCents)}
                       </p>
-                      <p className="mt-2 max-w-md text-sm text-[#2b2f38]">{claim.report}</p>
+                      <p className="mt-2 max-w-md whitespace-pre-line text-sm text-[#2b2f38]">{claim.report}</p>
                       <MediaGallery items={reportMedia} />
                       <ClaimProof
                         category={claim.mission.category}

@@ -120,7 +120,30 @@ export default async function MissionsPage({
                       </span>
                     </p>
                   )}
-                {claim.status === "EN_COURS" && <SubmitReportForm claimId={claim.id} />}
+                {claim.status === "EN_COURS" &&
+                  (claim.mission.execution === "PREUVE" ? (
+                    <>
+                      <Link
+                        href={`/mission/${claim.mission.id}`}
+                        className="mt-2 inline-block text-xs font-semibold text-brand-blue underline"
+                      >
+                        Ouvrir la fiche complète (ressources, détails)
+                      </Link>
+                      <SubmitReportForm claimId={claim.id} />
+                    </>
+                  ) : (
+                    <Link
+                      href={`/missions/executer/${claim.id}`}
+                      className="mt-3 inline-block bg-brand-red px-5 py-3 text-xs font-bold tracking-wide text-white transition-colors hover:bg-brand-red/90"
+                    >
+                      {claim.mission.execution === "QUIZ"
+                        ? claim.mission.videoUrl
+                          ? "REGARDER ET RÉPONDRE AU QUIZ"
+                          : "RÉPONDRE AU QUIZ"
+                        : "RÉPONDRE AU QUESTIONNAIRE"}{" "}
+                      →
+                    </Link>
+                  ))}
                 {claim.status === "EN_COURS" && <RetractButton claimId={claim.id} />}
                 {claim.status === "REJETEE" &&
                   (claim.dispute ? (
@@ -190,6 +213,11 @@ export default async function MissionsPage({
                     <Link href={`/mission/${mission.id}`} className="text-sm font-semibold text-[#2b2f38] hover:text-brand-blue hover:underline">
                       {mission.title}
                     </Link>
+                    {mission.execution !== "PREUVE" && (
+                      <span className="ml-2 rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-bold text-brand-red">
+                        À FAIRE SUR PUBAFRIC
+                      </span>
+                    )}
                     {mission.description && (
                       <p className="mt-1 max-w-lg text-xs text-[#2b2f38]">{mission.description}</p>
                     )}

@@ -10,6 +10,8 @@ import { getCategory } from "@/lib/categories";
 import { formatMoney } from "@/lib/currency";
 import { internauteNet } from "@/lib/fees";
 import { parseMediaJson } from "@/lib/upload";
+import MissionResources from "@/components/MissionResources";
+import { parseQuestions, parseResources, MAX_QUIZ_ATTEMPTS } from "@/lib/mission-content";
 
 const OCCUPYING_STATUSES = ["EN_COURS", "SOUMISE", "VALIDEE"];
 
@@ -104,6 +106,19 @@ export default async function MissionDetailPage({ params }: Params) {
               </li>
             ))}
           </ol>
+
+          {mission.execution !== "PREUVE" && (
+            <div className="mt-8 border-l-4 border-brand-red bg-brand-red/5 p-4 text-sm text-[#4a5262]">
+              <p className="font-bold text-brand-red">Cette mission se fait directement sur PubAfric</p>
+              <p className="mt-1">
+                {mission.execution === "QUIZ"
+                  ? `Vous regardez le contenu, puis vous répondez à ${parseQuestions(mission.questionsJson).length} questions. Chaque bonne réponse remplit la jauge ; à 100 %, la mission est validée et payée automatiquement. Vous avez ${MAX_QUIZ_ATTEMPTS} essais.`
+                  : `Vous répondez à ${parseQuestions(mission.questionsJson).length} questions en ligne, sans rien à envoyer d'autre.${mission.autoValidate ? " Le paiement est automatique dès l'envoi." : " Le paiement suit la validation de l'entreprise."}`}
+              </p>
+            </div>
+          )}
+
+          <MissionResources resources={parseResources(mission.resourcesJson)} />
 
           {mission.proofRequired && (
             <>

@@ -47,6 +47,8 @@ export default function ImportMissionsPanel({ accountEmail }: { accountEmail: st
           <p className="text-sm font-bold text-[#2b2f38]">
             {report.dryRun ? "Aperçu (rien n'a été écrit)" : "Import terminé"} — {report.created}{" "}
             à créer, {report.updated} à mettre à jour
+            {report.removed > 0 &&
+              `, ${report.removed} doublon${report.removed > 1 ? "s" : ""} ${report.dryRun ? "à supprimer" : "supprimé" + (report.removed > 1 ? "s" : "")} (brouillons sans participation)`}
           </p>
           <p className="mt-1 text-sm font-bold text-brand-red">
             Budget total à créditer sur le portefeuille « PubAfric » :{" "}

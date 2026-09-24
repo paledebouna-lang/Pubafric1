@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache";
 import { MISSION_CATEGORIES } from "@/lib/categories";
 import { buildMissionPaymentOps } from "@/lib/payments";
 import { parseFcfa, formatMoney } from "@/lib/currency";
+import { parseExecutionForm } from "@/lib/execution-form";
+import { saveUploadedFile } from "@/lib/upload";
 import { importKitMissions, type ImportReport, type KitFile } from "@/lib/seed-missions";
 import kitFile from "../../../pubafric-kit/missions.json";
 
@@ -254,8 +256,13 @@ export async function createAdminMission(
     return { error: "Catégorie invalide." };
   }
 
+  const contentVideoUrl = await saveUploadedFile(formData.get("contentVideo") as File | null);
+  const exec = parseExecutionForm(formData, contentVideoUrl);
+  if ("error" in exec) return { error: exec.error };
+
   await prisma.mission.create({
     data: {
+      ...exec.data,
       title,
       instructions,
       category,
@@ -353,7 +360,7 @@ export async function importPubafricMissions(
 
   const dryRun = formData.get("mode") !== "import";
   try {
-    const report = await importKitMissions(prisma, kitFile as KitFile, { dryRun });
+    const report = await importKitMissions(prisma, kitFile as unknown as KitFile, { dryRun });
     if (!dryRun) revalidatePath("/admin");
     return { report };
   } catch (e) {

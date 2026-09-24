@@ -98,6 +98,18 @@ model Mission {
   locationLabel    String?
   estimatedMinutes Int?
 
+  // Exécution directement sur la plateforme.
+  // execution: PREUVE (défaut : l'internaute envoie un compte-rendu + preuves)
+  //          | QUIZ    (vidéo/contenu + questions à réponse juste, validation automatique à 100 %)
+  //          | SONDAGE (questionnaire rempli sur PubAfric, sans bonne réponse)
+  execution       String  @default("PREUVE")
+  videoUrl        String?
+  minWatchSeconds Int?
+  questionsJson   String?
+  resourcesJson   String? // ressources à afficher : textes à copier, liens, visuels
+  todoJson        String? // informations réelles encore à fournir avant publication (admin seulement)
+  autoValidate    Boolean @default(false)
+
   owner   User   @relation("MissionOwner", fields: [ownerId], references: [id])
   ownerId String
 
@@ -114,6 +126,12 @@ model MissionClaim {
   reportMediaJson String?
   verificationCode String?
   decidedAt       DateTime?
+
+  // Exécution sur la plateforme (quiz / sondage)
+  answersJson     String?
+  attempts        Int       @default(0)
+  score           Int? // meilleur pourcentage de bonnes réponses (quiz)
+  watchStartedAt  DateTime?
 
   mission   Mission @relation(fields: [missionId], references: [id])
   missionId String

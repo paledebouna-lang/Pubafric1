@@ -10,6 +10,7 @@ import ArchiveButton from "./ArchiveButton";
 import PublishButton from "./PublishButton";
 import ImportMissionsPanel from "./ImportMissionsPanel";
 import { PUBAFRIC_ACCOUNT_EMAIL } from "@/lib/seed-missions";
+import { missionTodos } from "@/lib/mission-todos";
 import AdminMissionForm from "./AdminMissionForm";
 import AnnouncementForm from "./AnnouncementForm";
 import AnnouncementToggle from "./AnnouncementToggle";
@@ -418,7 +419,7 @@ export default async function AdminPage() {
                     Par {claim.user.name} ·{" "}
                     {formatMoney(claim.mission.rewardCents)}
                   </p>
-                  <p className="mt-2 max-w-md text-sm text-[#2b2f38]">{claim.report}</p>
+                  <p className="mt-2 max-w-md whitespace-pre-line text-sm text-[#2b2f38]">{claim.report}</p>
                   <ClaimProof
                     category={claim.mission.category}
                     verificationCode={claim.verificationCode}
@@ -445,11 +446,20 @@ export default async function AdminPage() {
                 <div className="flex items-center gap-3">
                   <category.icon size={18} className="shrink-0 text-brand-blue" strokeWidth={1.5} />
                   <div>
-                    <p className="text-sm font-semibold text-[#2b2f38]">{m.title}</p>
+                    <a href={`/mission/${m.id}`} className="text-sm font-semibold text-[#2b2f38] hover:text-brand-blue hover:underline">
+                      {m.title}
+                    </a>
                     <p className="text-xs text-[#9aa2b1]">
                       {m.owner.name} · {formatMoney(m.rewardCents)} ·{" "}
                       {MISSION_STATUS_LABEL[m.status] ?? m.status}
+                      {m.execution !== "PREUVE" && ` · ${m.execution === "QUIZ" ? "Vidéo + quiz" : "Questionnaire"} sur la plateforme`}
                     </p>
+                    {m.status === "BROUILLON" &&
+                      missionTodos(m).map((t) => (
+                        <p key={t} className="text-xs font-semibold text-brand-coral">
+                          ⚠ À compléter avant publication : {t}
+                        </p>
+                      ))}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
