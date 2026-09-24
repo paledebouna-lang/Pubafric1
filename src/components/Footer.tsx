@@ -1,5 +1,6 @@
 import Link from "next/link";
 import KenteBar from "./KenteBar";
+import { socialUrl } from "@/lib/social";
 
 const COLUMNS = [
   {
@@ -31,9 +32,9 @@ const COLUMNS = [
 // (variables d'environnement SOCIAL_*_URL) : pas de bouton mort dans le pied de page.
 function getSocials() {
   return [
-    { label: "WhatsApp", href: process.env.SOCIAL_WHATSAPP_URL },
-    { label: "Facebook", href: process.env.SOCIAL_FACEBOOK_URL },
-    { label: "TikTok", href: process.env.SOCIAL_TIKTOK_URL },
+    { label: "WhatsApp", href: socialUrl("SOCIAL_WHATSAPP_URL") ?? undefined },
+    { label: "Facebook", href: socialUrl("SOCIAL_FACEBOOK_URL") ?? undefined },
+    { label: "TikTok", href: socialUrl("SOCIAL_TIKTOK_URL") ?? undefined },
   ].filter((s): s is { label: string; href: string } => Boolean(s.href));
 }
 

@@ -1,3 +1,5 @@
+import { socialUrl } from "@/lib/social";
+
 // Contenu des missions exécutées directement sur la plateforme (quiz après vidéo, sondage)
 // et ressources affichées avec une mission. Fonctions pures, sans base de données.
 
@@ -88,10 +90,11 @@ export function parseTodo(raw: string | null | undefined): string[] {
   return Array.isArray(data) ? data.filter((t): t is string => typeof t === "string") : [];
 }
 
-// Résout un lien "env:NOM" ; renvoie null tant que la variable n'est pas renseignée.
+// Résout un lien "env:NOM" (variable d'environnement, ou lien officiel par défaut) ;
+// renvoie null tant qu'aucun lien n'est renseigné.
 export function resolveResourceUrl(url: string | undefined): string | null {
   if (!url) return null;
-  if (url.startsWith("env:")) return process.env[url.slice(4)]?.trim() || null;
+  if (url.startsWith("env:")) return socialUrl(url.slice(4));
   return url;
 }
 
