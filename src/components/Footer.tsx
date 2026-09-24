@@ -36,6 +36,7 @@ function getSocials() {
     { label: "Facebook", href: socialUrl("SOCIAL_FACEBOOK_URL") ?? undefined },
     { label: "YouTube", href: socialUrl("SOCIAL_YOUTUBE_URL") ?? undefined },
     { label: "TikTok", href: socialUrl("SOCIAL_TIKTOK_URL") ?? undefined },
+    { label: "Instagram", href: socialUrl("SOCIAL_INSTAGRAM_URL") ?? undefined },
   ].filter((s): s is { label: string; href: string } => Boolean(s.href));
 }
 
