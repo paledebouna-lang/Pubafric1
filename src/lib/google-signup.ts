@@ -1,6 +1,8 @@
 // Connexion / inscription avec Google. Le bouton n'apparaît que si les deux clés
 // AUTH_GOOGLE_ID et AUTH_GOOGLE_SECRET sont renseignées dans l'environnement.
-export const GOOGLE_ENABLED = Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET);
+export const GOOGLE_ENABLED = Boolean(
+  process.env.AUTH_GOOGLE_ID?.trim() && process.env.AUTH_GOOGLE_SECRET?.trim()
+);
 
 // Cookie court (10 min) posé avant de partir chez Google : il mémorise le profil choisi
 // (internaute / entreprise) et le code de parrainage pour la création du compte au retour.

@@ -20,7 +20,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   pages: { signIn: "/connexion" },
   providers: [
-    ...(GOOGLE_ENABLED ? [Google] : []),
+    // Les clés collées dans Vercel contiennent souvent un saut de ligne ou une espace invisible :
+    // on les nettoie, sinon Google répond "OAuth client was not found".
+    ...(GOOGLE_ENABLED
+      ? [
+          Google({
+            clientId: process.env.AUTH_GOOGLE_ID?.trim(),
+            clientSecret: process.env.AUTH_GOOGLE_SECRET?.trim(),
+          }),
+        ]
+      : []),
     Credentials({
       credentials: {
         identifier: { label: "Email ou téléphone" },
