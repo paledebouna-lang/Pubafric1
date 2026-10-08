@@ -1,4 +1,5 @@
 import { socialUrl } from "@/lib/social";
+import { rewriteLegacyHost } from "@/lib/site";
 
 // Contenu des missions exécutées directement sur la plateforme (quiz après vidéo, sondage)
 // et ressources affichées avec une mission. Fonctions pures, sans base de données.
@@ -80,9 +81,13 @@ export function publicQuestions(questions: Question[]): Omit<Question, "correct"
 export function parseResources(raw: string | null | undefined): Resource[] {
   const data = safeJson(raw);
   if (!Array.isArray(data)) return [];
-  return data.filter(
-    (r): r is Resource => !!r && typeof r === "object" && typeof (r as Resource).label === "string"
-  );
+  return data
+    .filter((r): r is Resource => !!r && typeof r === "object" && typeof (r as Resource).label === "string")
+    .map((r) => ({
+      ...r,
+      ...(r.text ? { text: rewriteLegacyHost(r.text) } : {}),
+      ...(r.url ? { url: rewriteLegacyHost(r.url) } : {}),
+    }));
 }
 
 export function parseTodo(raw: string | null | undefined): string[] {

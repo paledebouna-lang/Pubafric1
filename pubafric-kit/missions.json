@@ -36,7 +36,7 @@
         },
         {
           "label": "Légende à copier",
-          "text": "🌍 Gagne de l'argent avec ton téléphone ! Sur PubAfric, tu fais de petites missions et tu es payé en FCFA par Mobile Money. Inscris-toi gratuitement 👉 https://pubafric1.vercel.app"
+          "text": "🌍 Gagne de l'argent avec ton téléphone ! Sur PubAfric, tu fais de petites missions et tu es payé en FCFA par Mobile Money. Inscris-toi gratuitement 👉 https://www.pubafric.com"
         }
       ]
     },
@@ -130,11 +130,11 @@
       "ressources": [
         {
           "label": "Site à tester",
-          "url": "https://pubafric1.vercel.app"
+          "url": "https://www.pubafric.com"
         },
         {
           "label": "Page « PubAfric en 7 questions »",
-          "url": "https://pubafric1.vercel.app/a-propos"
+          "url": "https://www.pubafric.com/a-propos"
         }
       ],
       "questions": [
@@ -1035,7 +1035,7 @@
       "ressources": [
         {
           "label": "Message à copier",
-          "text": "Salut ! Je viens de découvrir PubAfric : on fait de petites missions sur son téléphone (avis, sondages, terrain) et on est payé en FCFA par Mobile Money. L'inscription est gratuite 👉 https://pubafric1.vercel.app"
+          "text": "Salut ! Je viens de découvrir PubAfric : on fait de petites missions sur son téléphone (avis, sondages, terrain) et on est payé en FCFA par Mobile Money. L'inscription est gratuite 👉 https://www.pubafric.com"
         }
       ]
     },
@@ -1069,7 +1069,7 @@
         },
         {
           "label": "Brief",
-          "text": "Objectif : donner envie de rejoindre PubAfric et de gagner de l'argent avec son téléphone.\nCouleurs de la marque : bleu #2f4b7c, or #e3a008, rouge #c1272d, vert #1e7145.\nÀ faire apparaître : le logo, une phrase d'accroche courte, et l'adresse https://pubafric1.vercel.app.\nÀ éviter : les promesses de gains irréalistes."
+          "text": "Objectif : donner envie de rejoindre PubAfric et de gagner de l'argent avec son téléphone.\nCouleurs de la marque : bleu #2f4b7c, or #e3a008, rouge #c1272d, vert #1e7145.\nÀ faire apparaître : le logo, une phrase d'accroche courte, et l'adresse https://www.pubafric.com.\nÀ éviter : les promesses de gains irréalistes."
         }
       ]
     },
@@ -1323,7 +1323,7 @@
       "ressources": [
         {
           "label": "Guide « Comment ça marche »",
-          "url": "https://pubafric1.vercel.app/comment-ca-marche"
+          "url": "https://www.pubafric.com/comment-ca-marche"
         }
       ],
       "questions": [
