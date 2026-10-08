@@ -125,7 +125,7 @@ export default function CreateMissionForm({ template }: { template?: MissionIdea
           />
         </label>
         <label className="flex-1 text-xs text-[#7c8797]">
-          Vidéo (optionnel)
+          Vidéo (optionnel, 4 Mo max : sinon, un lien)
           <input
             name="video"
             type="file"

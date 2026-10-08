@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { MISSION_CATEGORIES } from "@/lib/categories";
-import { saveUploadedFile, buildMediaList } from "@/lib/upload";
+import { saveUploadedFile, buildMediaList, UploadError } from "@/lib/upload";
 import { getModerationBlock } from "@/lib/moderation";
 import { buildMissionPaymentOps, entrepriseCost } from "@/lib/payments";
 import { parseFcfa } from "@/lib/currency";
@@ -57,12 +57,20 @@ export async function createMission(
     return { error: "Le délai doit être entre 1 heure et 30 jours." };
   }
 
-  const contentVideoUrl = await saveUploadedFile(formData.get("contentVideo") as File | null);
+  let contentVideoUrl: string | null = null;
+  let imageUrl: string | null = null;
+  let videoUrl: string | null = null;
+  try {
+    contentVideoUrl = await saveUploadedFile(formData.get("contentVideo") as File | null);
+    imageUrl = await saveUploadedFile(image);
+    videoUrl = await saveUploadedFile(video);
+  } catch (e) {
+    if (e instanceof UploadError) return { error: e.message };
+    throw e;
+  }
   const exec = parseExecutionForm(formData, contentVideoUrl);
   if ("error" in exec) return { error: exec.error };
 
-  const imageUrl = await saveUploadedFile(image);
-  const videoUrl = await saveUploadedFile(video);
   const media = buildMediaList({ imageUrl, videoUrl, link });
   await prisma.mission.create({
     data: {

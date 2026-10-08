@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { CURRENCY_CODE } from "@/lib/currency";
 import { generateVerificationCode, VERIFICATION_CODE_TTL_MINUTES } from "@/lib/moderation";
 import { generateUniqueReferralCode } from "@/lib/referral";
-import { saveUploadedFile } from "@/lib/upload";
+import { saveUploadedFile, UploadError } from "@/lib/upload";
 
 export type RegisterState = { error?: string };
 
@@ -72,7 +72,13 @@ export async function registerUser(
     Date.now() + VERIFICATION_CODE_TTL_MINUTES * 60 * 1000
   );
   const referralCode = role === "INTERNAUTE" ? await generateUniqueReferralCode() : null;
-  const logoUrl = role === "ENTREPRISE" ? await saveUploadedFile(logo) : null;
+  let logoUrl: string | null = null;
+  try {
+    logoUrl = role === "ENTREPRISE" ? await saveUploadedFile(logo) : null;
+  } catch (e) {
+    if (e instanceof UploadError) return { error: e.message };
+    throw e;
+  }
 
   await prisma.user.create({
     data: {

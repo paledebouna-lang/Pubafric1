@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { expireOverdueClaims } from "@/lib/missions";
 import { MAX_CONCURRENT_CLAIMS } from "@/lib/rules";
-import { saveUploadedFile, buildMediaList } from "@/lib/upload";
+import { saveUploadedFile, buildMediaList, UploadError } from "@/lib/upload";
 import { revalidatePath } from "next/cache";
 import { randomBytes } from "crypto";
 import { getModerationBlock } from "@/lib/moderation";
@@ -150,8 +150,15 @@ export async function submitReport(
     return { error: "Le délai est dépassé, cette mission a expiré." };
   }
 
-  const imageUrl = await saveUploadedFile(image);
-  const videoUrl = await saveUploadedFile(video);
+  let imageUrl: string | null = null;
+  let videoUrl: string | null = null;
+  try {
+    imageUrl = await saveUploadedFile(image);
+    videoUrl = await saveUploadedFile(video);
+  } catch (e) {
+    if (e instanceof UploadError) return { error: e.message };
+    throw e;
+  }
   const media = buildMediaList({ imageUrl, videoUrl, link });
 
   await prisma.missionClaim.update({

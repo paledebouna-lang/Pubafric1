@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
-import { saveUploadedFile } from "@/lib/upload";
+import { saveUploadedFile, UploadError } from "@/lib/upload";
 
 export type ActionState = { error?: string; success?: string };
 
@@ -34,7 +34,13 @@ export async function updateProfile(
     }
   }
 
-  const logoUrl = session.user.role === "ENTREPRISE" ? await saveUploadedFile(logo) : null;
+  let logoUrl: string | null = null;
+  try {
+    logoUrl = session.user.role === "ENTREPRISE" ? await saveUploadedFile(logo) : null;
+  } catch (e) {
+    if (e instanceof UploadError) return { error: e.message };
+    throw e;
+  }
 
   await prisma.user.update({
     where: { id: session.user.id },

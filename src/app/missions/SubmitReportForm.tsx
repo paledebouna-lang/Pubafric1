@@ -24,11 +24,11 @@ export default function SubmitReportForm({ claimId }: { claimId: string }) {
       />
       <div className="flex gap-3">
         <label className="flex-1 text-xs text-[#7c8797]">
-          Photo (optionnel)
+          Photo (optionnel, 4 Mo max)
           <input name="image" type="file" accept="image/*" className="mt-1 block w-full text-xs" />
         </label>
         <label className="flex-1 text-xs text-[#7c8797]">
-          Vidéo (optionnel)
+          Vidéo (optionnel, 4 Mo max : sinon, un lien)
           <input name="video" type="file" accept="video/*" className="mt-1 block w-full text-xs" />
         </label>
       </div>

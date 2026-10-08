@@ -7,7 +7,7 @@ import { MISSION_CATEGORIES } from "@/lib/categories";
 import { buildMissionPaymentOps } from "@/lib/payments";
 import { parseFcfa, formatMoney } from "@/lib/currency";
 import { parseExecutionForm } from "@/lib/execution-form";
-import { saveUploadedFile } from "@/lib/upload";
+import { saveUploadedFile, UploadError } from "@/lib/upload";
 import { importKitMissions, type ImportReport, type KitFile } from "@/lib/seed-missions";
 import kitFile from "../../../pubafric-kit/missions.json";
 
@@ -256,7 +256,13 @@ export async function createAdminMission(
     return { error: "Catégorie invalide." };
   }
 
-  const contentVideoUrl = await saveUploadedFile(formData.get("contentVideo") as File | null);
+  let contentVideoUrl: string | null = null;
+  try {
+    contentVideoUrl = await saveUploadedFile(formData.get("contentVideo") as File | null);
+  } catch (e) {
+    if (e instanceof UploadError) return { error: e.message };
+    throw e;
+  }
   const exec = parseExecutionForm(formData, contentVideoUrl);
   if ("error" in exec) return { error: exec.error };
 
