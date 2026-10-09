@@ -6,7 +6,7 @@ import MissionCover from "./MissionCover";
 
 export default async function LatestMissions() {
   const missions = await prisma.mission.findMany({
-    where: { status: { not: "BROUILLON" } },
+    where: { status: "OUVERTE" },
     orderBy: { createdAt: "desc" },
     take: 10,
   });
@@ -20,7 +20,7 @@ export default async function LatestMissions() {
         </h2>
 
         {missions.length === 0 ? (
-          <p className="mt-12 text-sm text-[#7c8797]">Aucune mission publiée pour le moment.</p>
+          <p className="mt-12 text-sm text-[#7c8797]">De nouvelles missions arrivent très bientôt. Inscrivez-vous pour être prévenu(e) des premières.</p>
         ) : (
           <div className="mt-12 grid gap-3 bg-white p-4 shadow-sm sm:grid-cols-2 sm:gap-x-8">
             {missions.map((mission) => {

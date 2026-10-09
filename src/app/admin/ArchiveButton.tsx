@@ -14,7 +14,7 @@ export default function ArchiveButton({ missionId }: { missionId: string }) {
         disabled={pending}
         className="rounded-full border border-border-soft px-3 py-1 text-xs font-semibold text-[#7c8797] hover:border-brand-coral hover:text-brand-coral disabled:opacity-60"
       >
-        {pending ? "..." : "Archiver"}
+        {pending ? "..." : "Marquer achevée"}
       </button>
     </form>
   );

@@ -88,7 +88,7 @@ export default async function MissionDetailPage({ params }: Params) {
                 {occupied}/{mission.slotsTotal}
               </dd>
               <dd className="text-xs text-[#7c8797]">
-                {mission.status === "ARCHIVEE" ? "mission archivée" : full ? "complet" : "disponible"}
+                {mission.status === "ARCHIVEE" ? "mission achevée" : full ? "complet" : "disponible"}
               </dd>
             </div>
           </dl>

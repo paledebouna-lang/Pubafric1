@@ -179,7 +179,7 @@ export default async function EntrepriseMissionsPage({
                   <div>
                     <p className="text-sm font-semibold text-[#2b2f38]">{mission.title}</p>
                     <p className="mt-1 text-xs text-[#9aa2b1]">
-                      {mission.status === "ARCHIVEE" ? "Archivée" : mission.status === "BROUILLON" ? "Brouillon (non publiée)" : "Ouverte"} · délai{" "}
+                      {mission.status === "ARCHIVEE" ? "Achevée" : mission.status === "BROUILLON" ? "Brouillon (non publiée)" : "Ouverte"} · délai{" "}
                       {mission.deadlineHours}h
                     </p>
                     <div className="mt-2">

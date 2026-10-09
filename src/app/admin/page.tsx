@@ -7,6 +7,7 @@ import BanButton from "./BanButton";
 import DeleteUserButton from "./DeleteUserButton";
 import DisputeDecisionButtons from "./DisputeDecisionButtons";
 import ArchiveButton from "./ArchiveButton";
+import CompleteAllButton from "./CompleteAllButton";
 import PublishButton from "./PublishButton";
 import ImportMissionsPanel from "./ImportMissionsPanel";
 import { PUBAFRIC_ACCOUNT_EMAIL } from "@/lib/seed-missions";
@@ -27,7 +28,7 @@ import {
 const MISSION_STATUS_LABEL: Record<string, string> = {
   BROUILLON: "Brouillon (non publiée)",
   OUVERTE: "Ouverte",
-  ARCHIVEE: "Archivée",
+  ARCHIVEE: "Achevée",
 };
 
 const ROLE_LABEL: Record<string, string> = {
@@ -435,6 +436,9 @@ export default async function AdminPage() {
 
       <section className="mt-12">
         <h2 className="text-sm font-bold tracking-widest text-brand-red">TOUTES LES MISSIONS</h2>
+        <div className="mt-4">
+          <CompleteAllButton openCount={missions.filter((m) => m.status === "OUVERTE").length} />
+        </div>
         <div className="mt-4 flex flex-col gap-2">
           {missions.map((m) => {
             const category = getCategory(m.category);

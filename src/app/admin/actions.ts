@@ -387,6 +387,27 @@ export async function archiveMission(
   return {};
 }
 
+// Marque toutes les missions actuellement publiées comme achevées (statut interne ARCHIVEE) :
+// elles ne peuvent plus être prises, mais les internautes qui les avaient déjà prises peuvent
+// encore envoyer leur compte-rendu et être payés. Les brouillons ne sont pas touchés.
+export async function completeAllMissions(
+  _prev: ActionState,
+  _formData: FormData
+): Promise<ActionState> {
+  const admin = await requireAdmin();
+  if (!admin) return { error: "Non autorisé." };
+
+  const result = await prisma.mission.updateMany({
+    where: { status: "OUVERTE" },
+    data: { status: "ARCHIVEE" },
+  });
+  revalidatePath("/admin");
+  revalidatePath("/toutes-les-missions");
+  revalidatePath("/missions");
+  revalidatePath("/");
+  return { success: `${result.count} mission${result.count > 1 ? "s" : ""} marquée${result.count > 1 ? "s" : ""} comme achevée${result.count > 1 ? "s" : ""}.` };
+}
+
 export async function createAnnouncement(
   _prev: ActionState,
   formData: FormData

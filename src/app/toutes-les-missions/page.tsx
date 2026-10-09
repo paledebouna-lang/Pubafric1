@@ -16,7 +16,7 @@ export default async function ToutesLesMissionsPage({
 
   const missions = await prisma.mission.findMany({
     where: { status: { not: "BROUILLON" }, ...(activeCategory ? { category: activeCategory } : {}) },
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ status: "desc" }, { createdAt: "desc" }],
     take: 60,
     include: { owner: { select: { name: true } }, claims: true },
   });
@@ -89,7 +89,7 @@ export default async function ToutesLesMissionsPage({
                       closed ? "bg-[#e7e9ee] text-[#7c8797]" : "bg-brand-teal text-white"
                     }`}
                   >
-                    {mission.status === "ARCHIVEE" ? "Archivée" : full ? "Complet" : "Disponible"}
+                    {mission.status === "ARCHIVEE" ? "Achevée" : full ? "Complet" : "Disponible"}
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
