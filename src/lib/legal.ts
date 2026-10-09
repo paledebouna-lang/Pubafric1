@@ -17,7 +17,7 @@ export function getLegal() {
     form: env("LEGAL_COMPANY_FORM", "SARL pluri-personnelle"),
     capital: env("LEGAL_CAPITAL", "5 000 000 FCFA"),
     registration: env("LEGAL_RCCM", "CI-ABJ-2019-B-03563"), // numéro RCCM
-    taxId: env("LEGAL_TAX_ID"), // numéro de compte contribuable (à renseigner une fois confirmé)
+    taxId: env("LEGAL_TAX_ID", "1908771 N"), // numéro de compte contribuable (confirmé par l'éditeur)
     address: env(
       "LEGAL_ADDRESS",
       "Lot 2350, îlot 137, Riviera II (derrière Poulet Chaud), Cocody, Abidjan, Côte d'Ivoire — BP 90 Bonoua"
