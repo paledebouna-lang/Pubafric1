@@ -10,7 +10,8 @@ export default function MentionsLegalesPage() {
   const legal = getLegal();
 
   const identity: [string, string][] = [
-    ["Dénomination", legal.name],
+    ["Éditeur", legal.name],
+    ["Nom commercial du site", legal.brand],
     ...(legal.form ? ([["Forme juridique", legal.form]] as [string, string][]) : []),
     ...(legal.capital ? ([["Capital", legal.capital]] as [string, string][]) : []),
     ...(legal.registration ? ([["RCCM", legal.registration]] as [string, string][]) : []),
@@ -62,8 +63,9 @@ export default function MentionsLegalesPage() {
       <section className="mt-10">
         <h2 className="text-sm font-bold text-[#2b2f38]">Éditeur du site</h2>
         <p className="mt-2 text-sm leading-relaxed text-[#7c8797]">
-          PubAFric est une plateforme de mise en relation entre internautes et entreprises pour la
-          réalisation de micro-missions rémunérées.
+          Le site PubAFric (www.pubafric.com) est édité par {legal.name}. PubAFric est une
+          plateforme de mise en relation entre internautes et entreprises pour la réalisation de
+          micro-missions rémunérées.
         </p>
         <dl className="mt-3 divide-y divide-border-soft border border-border-soft bg-white text-sm">
           {identity.map(([k, v]) => (

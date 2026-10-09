@@ -1,23 +1,29 @@
 // Informations légales de l'éditeur, affichées dans les mentions légales et les CGU/CGV.
-// Elles se renseignent dans les variables d'environnement (Vercel > Settings > Environment
-// Variables) : un champ vide n'est simplement pas affiché, aucune information n'est inventée.
+// Source : documents officiels de la société (déclaration de constitution au RCCM et
+// déclaration fiscale d'existence). Chaque valeur peut être remplacée par une variable
+// d'environnement (Vercel > Settings > Environment Variables) ; une valeur vide n'est pas
+// affichée et aucune information n'est inventée.
 
-export const LEGAL_LAST_UPDATE = "24 septembre 2026";
+export const LEGAL_LAST_UPDATE = "9 octobre 2026";
 
-function env(name: string): string | null {
-  return process.env[name]?.trim() || null;
+function env(name: string, fallback: string | null = null): string | null {
+  return process.env[name]?.trim() || fallback;
 }
 
 export function getLegal() {
   return {
-    name: env("LEGAL_COMPANY_NAME") ?? "PubAfric",
-    form: env("LEGAL_COMPANY_FORM"), // ex : « SARL », « SAS », « Entreprise individuelle »
-    capital: env("LEGAL_CAPITAL"), // ex : « 1 000 000 FCFA »
-    registration: env("LEGAL_RCCM"), // numéro RCCM
-    taxId: env("LEGAL_TAX_ID"), // numéro de compte contribuable
-    address: env("LEGAL_ADDRESS"),
-    director: env("LEGAL_DIRECTOR"),
-    email: env("LEGAL_CONTACT_EMAIL") ?? "contact@pubafric.com",
+    brand: "PubAfric", // nom commercial du site
+    name: env("LEGAL_COMPANY_NAME", "AKWABA CORPORATION") as string,
+    form: env("LEGAL_COMPANY_FORM", "SARL pluri-personnelle"),
+    capital: env("LEGAL_CAPITAL", "5 000 000 FCFA"),
+    registration: env("LEGAL_RCCM", "CI-ABJ-2019-B-03563"), // numéro RCCM
+    taxId: env("LEGAL_TAX_ID"), // numéro de compte contribuable (à renseigner une fois confirmé)
+    address: env(
+      "LEGAL_ADDRESS",
+      "Lot 2350, îlot 137, Riviera II (derrière Poulet Chaud), Cocody, Abidjan, Côte d'Ivoire — BP 90 Bonoua"
+    ),
+    director: env("LEGAL_DIRECTOR", "N'GUESSAN Assa Étienne, gérant"),
+    email: env("LEGAL_CONTACT_EMAIL", "contact@pubafric.com") as string,
     phone: env("LEGAL_CONTACT_PHONE"),
   };
 }

@@ -26,7 +26,7 @@ function buildSections(contact: string): Section[] {
         {
           sub: "1.1 Définitions",
           list: [
-            "« PubAfric » ou « la Plateforme » : le site et les services de mise en relation édités par PubAfric (voir les mentions légales).",
+            "« PubAfric » ou « la Plateforme » : le site www.pubafric.com et les services de mise en relation qu'il propose, édités sous le nom commercial PubAfric par la société identifiée dans les mentions légales.",
             "« Internaute » : la personne physique âgée d'au moins 18 ans, inscrite sur la Plateforme, qui réalise des micro-missions proposées par des Entreprises.",
             "« Entreprise » : le professionnel (commerçant, profession libérale, société, association) inscrit sur la Plateforme pour proposer des micro-missions.",
             "« Utilisateur » : toute personne inscrite, qu'elle soit Internaute ou Entreprise. Le « Visiteur » est la personne qui consulte les pages publiques sans être inscrite.",
